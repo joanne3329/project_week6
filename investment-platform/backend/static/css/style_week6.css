@@ -1,0 +1,942 @@
+/* 強制覆蓋 Bootstrap 的背景色變數 */
+:root {
+  --bs-body-bg: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  --bs-body-color: #111827 !important;
+}
+
+/* Week 6 全局樣式 - 確保藍色背景 */
+body {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  background-attachment: fixed !important; /* 防止滾動時背景變化 */
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+/* 確保所有頁面都套用藍色背景 */
+body.week6-page {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  background-attachment: fixed !important;
+}
+
+/* 章節進度指示器 */
+.chapter-progress {
+  padding: 24px !important;
+  margin: 24px auto 32px !important;
+  max-width: 1200px !important;
+  background: #ffffff !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.12) !important;
+}
+
+.chapters {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 36px !important;
+  flex-wrap: wrap !important;
+  padding: 18px 28px !important;
+  background: #f7f8fa !important;
+  border-radius: 14px !important;
+}
+
+/* 章節按鈕 */
+.chapter {
+  background: transparent !important;
+  border: 0 !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  padding: 10px 22px !important;
+  box-shadow: none !important;
+  transition: color .2s ease, background .2s ease, transform .2s ease !important;
+  display: inline-block !important;
+}
+
+.chapter:hover {
+  background: #eaf3ff !important;
+  color: #1d4ed8 !important;
+  border-color: transparent !important;
+  transform: translateY(-1px) !important;
+  box-shadow: none !important;
+}
+
+.chapter.active {
+  background: #2563EB !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* 文章區塊 */
+.article-section {
+  padding: 2.25rem 2rem !important;
+  margin: 2rem auto 2.5rem !important;
+  max-width: 1100px !important;
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.12) !important;
+}
+
+.article-text {
+  line-height: 1.8 !important;
+  font-size: 1rem !important;
+}
+
+.article-text p {
+  font-size: 1.08rem !important;
+  color: #444 !important;
+  margin-bottom: 1.5rem !important;
+  text-align: justify !important;
+}
+
+/* 引言區塊 */
+.intro-quote {
+  margin: 40px auto !important;
+  max-width: 800px !important;
+}
+
+.quote-content {
+  background: #f5f9fc !important;
+  padding: 40px 35px !important;
+  border-radius: 15px !important;
+  border-left: 5px solid #2196F3 !important;
+  position: relative !important;
+  font-style: italic !important;
+  font-size: 1.1rem !important;
+  line-height: 1.8 !important;
+  color: #333 !important;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.08) !important;
+}
+
+.quote-decoration::before {
+  content: '"' !important;
+}
+
+/* 章節標題 */
+.section-title {
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
+  color: #1976D2 !important;
+  border-left: 5px solid #2196F3 !important;
+  padding-left: 15px !important;
+  margin: 40px auto 25px auto !important;
+  max-width: 800px !important;
+}
+
+/* 導航相關樣式 */
+.chapter-navigation {
+    position: fixed;
+    top: 50%;
+    right: -200px;
+    transform: translateY(-50%);
+    z-index: 100;
+    width: 200px;
+    transition: right 0.3s ease;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+  }
+  
+  .chapter-navigation:hover {
+    right: 0;
+  }
+  
+  /* 卡片樣式 */
+  .chapter-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #ffd966;
+    border-radius: 10px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+  
+  .chapter-card:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: #ffc107;
+  }
+  
+  .chapter-title {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ffd966;
+  }
+
+  .history-text {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #ffd966;
+    line-height: 1.8;
+  }
+  
+  .history-text p {
+    margin-bottom: 0;
+    text-align: justify;
+    color: #444;
+  }
+
+  .sp500-chart {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.sp500-chart img {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+}
+
+.chart-caption {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+  /* ETF特色圈圈樣式 */
+.etf-features-row {
+  margin: 3rem 0;
+  padding: 1rem;
+  position: relative;
+  overflow: visible;    /* 改為 visible，讓氣泡可以顯示在外部 */
+  min-height: 200px;    /* 確保有足夠空間顯示氣泡 */
+}
+
+  .etf-feature-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    border: 2.5px solid #ffd966;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    cursor: pointer;
+  }
+  
+  .etf-feature-circle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(255, 217, 102, 0.25);
+    border-color: #ffc107;
+    background: #fffbe6;
+  }
+
+  /* 基本樣式 */
+  .article-section {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  
+  .article-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  /* 表格樣式 */
+  .comparison-table {
+    border: 2px solid #ffd966;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  /* 按鈕樣式 */
+  .btn-warning {
+    background: #ffd966;
+    border-color: #ffc107;
+    color: #333;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-warning:hover {
+    background: #ffc107;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+  }
+
+/* 更新 feature-item 樣式 */
+.feature-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 新增右側文字樣式 */
+.feature-text {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  max-width: 150px;
+}
+
+/* 調整圈圈容器樣式 */
+.etf-features-row {
+  margin: 3rem auto;
+  padding: 1rem;
+  max-width: 1000px;
+}
+
+  .quiz-section {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .quiz-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+  }
+
+  .quiz-option {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .quiz-option:hover {
+    background: #f8f9fa;
+    border-color: #ffd966;
+  }
+
+  .quiz-option.selected {
+    background: #fff3cd;
+    border-color: #ffc107;
+  }
+
+  /* 新增導航觸發按鈕樣式 */
+  .nav-trigger {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #ffd966;
+    padding: 0.75rem 0.5rem;
+    border-radius: 10px 0 0 10px;
+    cursor: pointer;
+    z-index: 99;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .nav-trigger:hover {
+    background: #ffc107;
+  }
+
+  .nav-trigger .trigger-icon {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  /* 當導航選單開啟時隱藏觸發按鈕 */
+  .chapter-navigation:hover + .nav-trigger {
+    opacity: 0;
+  }
+
+  .quiz-redirect {
+    background: linear-gradient(145deg, #fff8e5 0%, #fff3cd 100%);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(255, 193, 7, 0.1);
+  }
+
+  .quiz-banner {
+    background: white;
+    border: 2px solid #ffd966;
+    transition: transform 0.3s ease;
+  }
+
+  .quiz-banner:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+  }
+
+.intro-text {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  border-left: 4px solid #ffd966;
+}
+
+.intro-text p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.intro-text strong {
+  color: #333;
+}
+
+  /* ETF 和投資股票差異表格 */
+
+.comparison-table th {
+  background: #fff8e5;
+  border-bottom: 2px solid #ffd966;
+  padding: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.comparison-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.comparison-table tr:hover {
+  background: #fff8e5;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.circles-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.circles-container .d-flex {
+  width: 100%;
+  justify-content: center;
+}
+  /* ETF 投資策略設計 */
+
+  .strategy-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #ffd966;
+    margin-bottom: 1.5rem;
+  }
+
+  .strategy-item h4 {
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  /* 特色說明樣式 */
+.feature-description {
+  display: none;
+  position: absolute;
+  left: calc(100% + 10px);  /* 改為 10px (原本是 20px) */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  background: white;
+  padding: 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  border: 2px solid #ffd966;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+/* 新增箭頭指示 */
+.feature-description::before {
+  content: '';
+  position: absolute;
+  left: -8px;  /* 改為 -8px (原本是 -10px) */
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 8px;  /* 改為 8px (原本是 10px) */
+  border-style: solid;
+  border-color: transparent #ffd966 transparent transparent;
+}
+
+.feature-description::after {
+  content: '';
+  position: absolute;
+  left: -5px;  /* 改為 -5px (原本是 -7px) */
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 8px;  /* 改為 8px (原本是 10px) */
+  border-style: solid;
+  border-color: transparent white transparent transparent;
+}
+
+/* 調整圈圈間距 */
+.feature-item {
+  position: relative;
+  margin: 0 1rem;  /* 改為 1rem (原本是 2rem) */
+}
+
+/* 調整容器樣式確保正確置中 */
+.d-flex.justify-content-center.align-items-center.gap-5 {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.description-content {
+  text-align: left;
+  max-height: 300px;     /* 限制最大高度 */
+  overflow-y: auto;      /* 內容過多時可滾動 */
+}
+
+.description-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.description-content::-webkit-scrollbar-thumb {
+  background: #ffd966;
+  border-radius: 3px;
+}
+
+  .description-content h5 {
+    color: #333;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ffd966;
+    padding-bottom: 0.5rem;
+  }
+
+  .description-content ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+  }
+
+  .description-content li {
+    margin-bottom: 0.5rem;
+  }
+
+/* 優化顯示效果 */
+.show-description {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+/* 在 style 區塊中更新/添加以下樣式 */
+.etf-features-container {
+  display: flex;
+  flex-direction: column;  /* 改為直向排列 */
+  align-items: center;
+  gap: 2rem;              /* 調整間距 */
+  margin: 3rem auto;
+  padding: 2rem 0;
+  max-width: 600px;
+  width: 100%;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.etf-feature-circle {
+  flex-shrink: 0;        /* 防止圓圈被壓縮 */
+  /* 其他原有樣式保持不變 */
+}
+
+.feature-text {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-left: 1.5rem;   /* 文字和圓圈的間距 */
+}
+
+.etf-analogy {
+background: #f1f1f1;
+    padding: 1.5rem;
+    border-radius: 10px;
+    line-height: 1.8;
+    margin-bottom: 0;
+    text-align: justify;
+    color: #444;
+}
+
+/* 修正表格置中問題，移除多餘寬度設定，確保 table 在父層自動置中 */
+.mt-5.d-flex.justify-content-center {
+  width: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.table-responsive {
+  margin: 0 auto !important;
+  max-width: 700px;
+  width: auto !important;
+  float: none !important;
+}
+
+.comparison-table {
+  margin: 0 auto;
+}
+
+/* ETF股票優勢卡片區塊樣式 */
+.etf-advantages-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.etf-advantage-card {
+  perspective: 800px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 140px;
+  min-height: 140px;
+  cursor: pointer;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+  transform-style: preserve-3d;
+}
+
+.etf-advantage-card .card-front,
+.etf-advantage-card .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(255, 217, 102, 0.08);
+  border: 2px solid #ffd966;
+  background: #fffbe6;
+  text-align: center;
+  padding: 0.8rem 0.3rem;
+  margin: 0;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: #fffde7;
+  border-color: #ffc107;
+}
+
+.etf-advantage-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.advantage-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.advantage-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.2rem;
+}
+
+.advantage-desc {
+  color: #666;
+  font-size: 0.95rem;
+  padding: 0 0.2rem;
+}
+
+@media (max-width: 900px) {
+  .etf-advantages-row {
+    gap: 0.7rem;
+  }
+  .etf-advantage-card {
+    width: 38vw;
+    min-width: 140px;
+    max-width: 95vw;
+  }
+  .card-inner {
+    height: 140px;
+  }
+}
+
+@media (max-width: 600px) {
+  .etf-advantages-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .etf-advantage-card {
+    width: 90vw;
+    min-width: 0;
+    margin: 0 auto;
+  }
+  .card-inner {
+    height: 90px;
+  }
+}
+
+/* 新增債券比較卡片樣式 */
+.bond-compare-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.bond-compare-card {
+  perspective: 800px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 140px;
+  min-height: 140px;
+  cursor: pointer;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+}
+
+.bond-compare-card .card-inner {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+  transform-style: preserve-3d;
+}
+
+.bond-compare-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.bond-compare-card .card-front,
+.bond-compare-card .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(255, 217, 102, 0.08);
+  border: 2px solid #ffd966;
+  background: #eaf6ff;
+  text-align: center;
+  padding: 0.8rem 0.3rem;
+  margin: 0;
+}
+
+.bond-compare-card .card-front {
+  z-index: 2;
+}
+
+.bond-compare-card .card-back {
+  transform: rotateY(180deg);
+  background: #f0f7ff;
+  border-color: #90caf9;
+}
+
+.bond-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.bond-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1976d2;
+  margin-bottom: 0.2rem;
+}
+
+.bond-desc {
+  color: #444;
+  font-size: 0.95rem;
+  padding: 0 0.2rem;
+  transform: rotateY(0deg);
+}
+
+@media (max-width: 900px) {
+  .bond-compare-row {
+    gap: 0.7rem;
+  }
+  .bond-compare-card {
+    width: 38vw;
+    min-width: 110px;
+    max-width: 95vw;
+  }
+  .bond-compare-card .card-inner {
+    height: 110px;
+  }
+}
+@media (max-width: 600px) {
+  .bond-compare-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .bond-compare-card {
+    width: 90vw;
+    min-width: 0;
+    margin: 0 auto;
+  }
+  .bond-compare-card .card-inner {
+    height: 90px;
+  }
+}
+
+/* 增加卡片hover效果，提升互動性 */
+.bond-compare-card:hover .card-inner {
+  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.18);
+  border-color: #1976d2;
+  transform: scale(1.06) rotateY(180deg);
+}
+
+.bond-compare-card:active .card-inner {
+  transform: scale(0.98) rotateY(180deg);
+}
+
+.bond-compare-card .card-front, .bond-compare-card .card-back {
+  user-select: none;
+}
+
+/* ===== Week6 最終覆蓋，確保背景與導覽一致 ===== */
+
+/* 背景：有些樣式在其他檔案用 body.week6-page 或 Bootstrap 變數覆寫
+   使用更高選擇器 + !important 做最終修正 */
+html body.week6-page {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  background-image: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  background-color: transparent !important;
+  background-attachment: fixed !important;
+}
+
+/* 導覽按鈕：提升優先級，避免被其他樣式覆蓋 */
+html body.week6-page .chapter {
+  padding: 12px 28px !important;
+  background: #fff !important;
+  color: #666 !important;
+  text-decoration: none !important;
+  border-radius: 25px !important;
+  transition: all 0.3s ease !important;
+  border: 2px solid #e0e0e0 !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+  display: inline-block !important;
+}
+
+html body.week6-page .chapter:hover {
+  background: #e3f2fd !important;
+  color: #333 !important;
+  text-decoration: none !important;
+  border-color: #2196F3 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3) !important;
+}
+
+html body.week6-page .chapter.active {
+  background: linear-gradient(145deg, #2196F3 0%, #1976D2 100%) !important;
+  color: #fff !important;
+  border-color: #1976D2 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.4) !important;
+}
+
+/* ===== 最終統一覆蓋（請保留於檔案最後）===== */
+
+/* 文章卡片：與基礎概念一致的邊界與陰影（覆蓋前面較弱的定義） */
+.article-section {
+  padding: 2.25rem 2rem !important;
+  margin: 2rem auto 2.5rem !important;
+  max-width: 1100px !important;
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  box-shadow: 0 12px 30px rgba(33, 150, 243, 0.12) !important;
+}
+
+/* 章節按鈕：統一為「預設純文字分頁，active 藍色膠囊」 */
+html body.week6-page .chapter {
+  background: transparent !important;
+  border: 0 !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  padding: 10px 22px !important;
+  box-shadow: none !important;
+  transition: color .2s ease, background .2s ease, transform .2s ease !important;
+  display: inline-block !important;
+}
+
+html body.week6-page .chapter:hover {
+  background: #eaf3ff !important;
+  color: #1d4ed8 !important;
+  border-color: transparent !important;
+  transform: translateY(-1px) !important;
+  box-shadow: none !important;
+}
+
+html body.week6-page .chapter.active {
+  background: #2563EB !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+}
+
+/* 背景保險：確保 .week6-page 一律是藍色漸層 */
+html body.week6-page {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+  background-attachment: fixed !important;
+}

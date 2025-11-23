@@ -1,0 +1,674 @@
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<!-- ✅ 只載入 Week6 共用樣式和頁面專用樣式 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style_week6.css') }}?v={{ cache_buster }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/week6_why_invest.css') }}?v={{ cache_buster }}">
+{% endblock %}
+
+{% block body_class %}week6-page{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5 week6-container">
+  <!-- 新增：整頁白底卡片容器 -->
+  <div class="week6-card">
+    <!-- 章節進度指示 -->
+    <div class="chapter-progress text-center mb-4">
+      <div class="chapters">
+        <a href="/week6" class="chapter">基礎概念</a>
+        <a href="/week6_why_invest" class="chapter active">ETF 導覽</a>
+        <a href="/week6_strategy" class="chapter">新手上路</a>
+      </div>
+    </div>
+
+    <!-- 標題區 -->
+    <div class="text-center mb-5">
+      <h1 class="fw-bold">ETF 導覽：股票型 vs. 債券型</h1>
+      <p class="text-muted fs-5">深入了解兩大主要 ETF 類型的特色</p>
+    </div>
+
+    <!-- 投資 ETF 優勢說明 -->
+    <section id="why-invest" class="article-section">
+      <div class="article-text">
+        <p>在台灣，ETF 的熱潮大約從 2017 年後快速升溫，尤其是股票型 ETF，如「0050 元大台灣50」和「0056 元大高股息」，成為許多小資族和新手投資人的首選。原因在於這些 ETF 不僅標的清楚（前者追蹤台灣前 50 大市值公司，後者專注於高股息公司），而且買賣方式和股票一樣簡單，只要有證券帳戶，幾乎人人都能參與。許多證券公司也會透過廣告、教學文章或線上課程來推廣 ETF，因為它比起個股投資更容易理解，也更符合大眾投資教育的需求。</p>
+        
+        <!-- 投資股票ETF優勢 - 優化配色和圖示 -->
+        <div class="advantages-container mb-4">
+          <div class="advantage-card card-gradient-1">
+            <div class="advantage-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="advantage-title">分散持股</div>
+            <div class="advantage-desc">降低單一公司風險</div>
+          </div>
+          
+          <div class="advantage-card card-gradient-2">
+            <div class="advantage-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <div class="advantage-title">即時交易</div>
+            <div class="advantage-desc">靈活操作</div>
+          </div>
+          
+          <div class="advantage-card card-gradient-3">
+            <div class="advantage-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+            </div>
+            <div class="advantage-title">資訊透明</div>
+            <div class="advantage-desc">容易追蹤績效</div>
+          </div>
+          
+          <div class="advantage-card card-gradient-4">
+            <div class="advantage-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div class="advantage-title">成本低</div>
+            <div class="advantage-desc">適合長期投資</div>
+          </div>
+        </div>
+
+        <!-- 股票型 ETF 深入解析 -->
+        <section class="stock-etf-section mb-5">
+          <div class="intro-quote mb-5">
+            <div class="quote-content">
+              <p>當我們提到股票型 ETF，最直觀的想像就是「它是一籃子股票的組合」。這和單純購買一檔個股最大的差別在於風險與機會的分散。投資單一公司就像是把希望寄託在某一個明星球員身上，如果他狀況良好，你可能大獲全勝；但如果他受傷或表現失常，整支球隊就會陷入低迷。而股票型 ETF 則更像是一支由多位球員組成的隊伍，即使其中某些選手臨時失常，也還有其他人能支撐，整體表現會相對穩定。</p>
+              <div class="quote-decoration"></div>
+            </div>
+          </div>
+
+          <p class="mt-4"><strong>我們直接上球場，體驗一下「把希望全寄託在一人身上」和「相信整個團隊」的壓力差別有多大！</strong></p>
+
+          <!-- 互動小遊戲：NBA 總冠軍賽 - 簡約版 -->
+          <div class="nba-game-section mt-5 mb-5">
+            <h3 class="game-title text-center mb-4">🏀 互動小遊戲：NBA 總冠軍賽</h3>
+            
+            <div class="game-scenario mb-4">
+              <h4>⏱️ 情境：總冠軍賽 G7，倒數 10 秒！</h4>
+              <p><strong>請選擇你的策略：All-in 巨星 vs. 投資夢幻隊</strong></p>
+            </div>
+            
+            <div class="nba-game-container">
+              <!-- 策略 A -->
+              <div class="nba-strategy-card strategy-a-card">
+                <h4 class="strategy-title">😱 策略 A：All-in 超級巨星</h4>
+                <p class="strategy-desc">把希望全寄託在一人身上</p>
+                <p class="game-instruction"><strong>從三張戰術卡中選一張：</strong></p>
+                
+                <div class="tactical-cards-grid">
+                  <div class="tactical-card" onclick="selectTacticalCard(0)" id="tactical-card-0">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-label">戰術卡 1</div>
+                  </div>
+                  
+                  <div class="tactical-card" onclick="selectTacticalCard(1)" id="tactical-card-1">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-label">戰術卡 2</div>
+                  </div>
+                  
+                  <div class="tactical-card" onclick="selectTacticalCard(2)" id="tactical-card-2">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-label">戰術卡 3</div>
+                  </div>
+                </div>
+
+                <div class="hidden" id="superstarResult"></div>
+              </div>
+
+              <!-- 策略 B -->
+              <div class="nba-strategy-card strategy-b-card">
+                <h4 class="strategy-title">😊 策略 B：相信夢幻隊</h4>
+                <p class="strategy-desc">團隊合作，分散風險</p>
+                <p class="game-instruction"><strong>點擊下方按鈕，觀看團隊表現：</strong></p>
+                
+                <div class="text-center">
+                  <button class="simple-button green" onclick="startDreamTeamGame()" id="start-dreamteam-game">
+                    🤝 開始團隊合作
+                  </button>
+                </div>
+
+                <div class="hidden" id="teamScoringSection" style="display: none;">
+                  <div class="scoreboard">
+                    <div class="player-score">
+                      <span class="player-name">控球後衛</span>
+                      <span class="score-result" id="score1">...</span>
+                    </div>
+                    <div class="player-score">
+                      <span class="player-name">得分後衛</span>
+                      <span class="score-result" id="score2">...</span>
+                    </div>
+                    <div class="player-score">
+                      <span class="player-name">小前鋒</span>
+                      <span class="score-result" id="score3">...</span>
+                    </div>
+                    <div class="player-score">
+                      <span class="player-name">大前鋒</span>
+                      <span class="score-result" id="score4">...</span>
+                    </div>
+                    <div class="player-score">
+                      <span class="player-name">中鋒</span>
+                      <span class="score-result" id="score5">...</span>
+                    </div>
+                  </div>
+                  
+                  <div class="hidden" id="teamTotal" style="display: none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 遊戲結論 - 初始隱藏 -->
+          <div id="game-result-conclusion" class="game-conclusion-section" style="display: none;">
+            <div class="conclusion-card">
+              <h4 class="conclusion-title">💡 你學到了什麼？</h4>
+              <div class="conclusion-content">
+                <p><strong>策略 A (押注個股)：</strong> 像盲抽卡牌，可能大賺 +50%，也可能大虧 -40%</p>
+                <p><strong>策略 B (投資 ETF)：</strong> 團隊合作，雖有失誤但總體穩健 +15%</p>
+                <p><strong>結論：</strong>ETF 犧牲了一夜暴富的幻想，換來穩健成長的安心感</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="section-title mb-4">指數化投資的概念</h3>
+          <p>股票型 ETF 的核心在於「指數化投資」。指數是什麼呢？在新聞中我們常聽到的「台灣加權指數」、「S&P 500 指數」或「道瓊工業指數」，這些就是金融市場裡最重要的參考指標。它們像是體育比賽的積分榜，反映整個市場的平均表現。例如，S&P 500 指數就是由美國市值前 500 大公司組成，它能代表美國經濟的整體狀況。當你投資一檔追蹤 S&P 500 的 ETF，就等於是一次性投資在 500 家不同的公司上，這樣的組合讓你不用選股，也能跟著市場的走勢前進。而投資0056則像是找一群每學期固定都能拿獎學金的學生,雖然未必是全校最聰明的,但勝在穩定。</p>
+
+          <!-- 台灣熱門 ETF 介紹 - 改為卡片式佈局 -->
+          <div class="taiwan-etf-showcase my-5">
+            <h4 class="text-center mb-4">台灣熱門股票型 ETF</h4>
+            <div class="etf-cards-grid">
+              <!-- 0050 卡片 -->
+              <div class="etf-card">
+                <div class="etf-card-header">
+                  <span class="etf-number">0050</span>
+                  <h5 class="etf-name">元大台灣50</h5>
+                </div>
+                <div class="etf-card-body">
+                  <div class="etf-info-row">
+                    <span class="info-label">📊 追蹤指數</span>
+                    <span class="info-value">台灣50指數</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🏢 組成標的</span>
+                    <span class="info-value">台灣市值前50大公司</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🎯 投資特色</span>
+                    <span class="info-value">追蹤台灣整體經濟</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">💰 年配息率</span>
+                    <span class="info-value">約 2-4%</span>
+                  </div>
+                </div>
+                <div class="etf-card-footer">
+                  💡 適合追求資本成長的投資人
+                </div>
+              </div>
+
+              <!-- 0056 卡片 -->
+              <div class="etf-card">
+                <div class="etf-card-header">
+                  <span class="etf-number">0056</span>
+                  <h5 class="etf-name">元大高股息</h5>
+                </div>
+                <div class="etf-card-body">
+                  <div class="etf-info-row">
+                    <span class="info-label">📊 追蹤指數</span>
+                    <span class="info-value">台灣高股息指數</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🏢 組成標的</span>
+                    <span class="info-value">高股息配發公司</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🎯 投資特色</span>
+                    <span class="info-value">提供穩定現金流</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">💰 年配息率</span>
+                    <span class="info-value">約 4-6%</span>
+                  </div>
+                </div>
+                <div class="etf-card-footer">
+                  💡 適合追求穩定配息的投資人
+                </div>
+              </div>
+
+              <!-- 00878 卡片 -->
+              <div class="etf-card">
+                <div class="etf-card-header">
+                  <span class="etf-number">00878</span>
+                  <h5 class="etf-name">國泰永續高股息</h5>
+                </div>
+                <div class="etf-card-body">
+                  <div class="etf-info-row">
+                    <span class="info-label">📊 追蹤指數</span>
+                    <span class="info-value">MSCI台灣ESG永續高股息指數</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🏢 組成標的</span>
+                    <span class="info-value">ESG永續高股息公司</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🎯 投資特色</span>
+                    <span class="info-value">結合ESG與高息</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">💰 年配息率</span>
+                    <span class="info-value">約 5-7%</span>
+                  </div>
+                </div>
+                <div class="etf-card-footer">
+                  💡 適合重視永續投資的人
+                </div>
+              </div>
+
+              <!-- 006208 卡片 -->
+              <div class="etf-card">
+                <div class="etf-card-header">
+                  <span class="etf-number">006208</span>
+                  <h5 class="etf-name">富邦台50</h5>
+                </div>
+                <div class="etf-card-body">
+                  <div class="etf-info-row">
+                    <span class="info-label">📊 追蹤指數</span>
+                    <span class="info-value">台灣50指數</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🏢 組成標的</span>
+                    <span class="info-value">台灣市值前50大公司</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">🎯 投資特色</span>
+                    <span class="info-value">追蹤台灣整體經濟</span>
+                  </div>
+                  <div class="etf-info-row">
+                    <span class="info-label">💰 年配息率</span>
+                    <span class="info-value">約 2-4%</span>
+                  </div>
+                </div>
+                <div class="etf-card-footer">
+                  💡 與0050類似，費用率更低
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p></p>
+
+          <h3 class="section-title mb-4">股票型 ETF 的波動特性</h3>
+          <p><strong>股票型 ETF 的另一個重要特性是「波動性」。</strong>因為它追蹤的主要是股票市場,價格的漲跌會比債券或定存明顯得多。舉例來說,如果今天台股整體表現不佳,0050 也會隨之下跌;反之,如果台股大盤走強,0050 的價格自然也會跟著上升。這樣的特性意味著股票型 ETF 的風險比債券型 ETF 高,但同時,它的報酬潛力也更大。這就好比一場馬拉松比賽,有的人跑得快、有的人跑得穩;股票型 ETF 屬於「速度型」選手,可能在短期內大幅領先,但也有可能因為體力不支而落後。</p>
+
+          <h3 class="section-title mb-4">國際市場的知名 ETF</h3>
+          <p>除了台灣市場之外，國際市場的股票型 ETF 也非常受歡迎。以美國為例，SPY（S&P 500 ETF）是全球規模最大的 ETF，資產規模高達數千億美元；另外還有追蹤「納斯達克 100 指數」的 QQQ，它包含了許多科技龍頭公司，例如蘋果、微軟、Google、亞馬遜和特斯拉等。這些公司就像是科技界的明星球員，當整個科技產業蓬勃發展時，QQQ 的表現往往格外亮眼。</p>
+
+          <!-- 股票型 ETF 優缺點分析 - 左右對比版 -->
+          <div class="pros-cons-comparison my-5">
+            <h4 class="text-center mb-4">股票型 ETF 優缺點分析</h4>
+            
+            <div class="comparison-container">
+              <!-- 左欄：優點 -->
+              <div class="pros-card">
+                <div class="card-header pros-header">
+                  <svg class="header-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <h5 class="header-title">優點</h5>
+                </div>
+                <div class="card-content">
+                  <div class="point-row">
+                    <span class="point-icon">💰</span>
+                    <div class="point-text">
+                      <strong>低門檻</strong>
+                      <p>幾千元即可開始投資</p>
+                    </div>
+                  </div>
+                  
+                  <div class="point-row">
+                    <span class="point-icon">🔍</span>
+                    <div class="point-text">
+                      <strong>透明度高</strong>
+                      <p>定期公告持股內容</p>
+                    </div>
+                  </div>
+                  
+                  <div class="point-row">
+                    <span class="point-icon">💵</span>
+                    <div class="point-text">
+                      <strong>費用低廉</strong>
+                      <p>管理費遠低於傳統基金</p>
+                    </div>
+                  </div>
+                  
+                  <div class="point-row">
+                    <span class="point-icon">🎯</span>
+                    <div class="point-text">
+                      <strong>風險分散</strong>
+                      <p>一次投資多家公司</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 右欄：缺點 -->
+              <div class="cons-card">
+                <div class="card-header cons-header">
+                  <svg class="header-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                  </svg>
+                  <h5 class="header-title">注意事項</h5>
+                </div>
+                <div class="card-content">
+                  <div class="point-row">
+                    <span class="point-icon">📉</span>
+                    <div class="point-text">
+                      <strong>市場風險</strong>
+                      <p>無法避免大盤下跌</p>
+                    </div>
+                  </div>
+                  
+                  <div class="point-row">
+                    <span class="point-icon">🌊</span>
+                    <div class="point-text">
+                      <strong>波動較大</strong>
+                      <p>短期價格變化明顯</p>
+                    </div>
+                  </div>
+                  
+                  <div class="point-row">
+                    <span class="point-icon">🤖</span>
+                    <div class="point-text">
+                      <strong>被動管理</strong>
+                      <p>無法主動調整持股</p>
+                    </div>
+                  </div>
+                  
+                  <div class="point-row">
+                    <span class="point-icon">⏰</span>
+                    <div class="point-text">
+                      <strong>需要耐心</strong>
+                      <p>長期持有才能見效</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p>最後，我們也不能忽略<strong>股票型 ETF </strong>的風險。由於它<strong>緊密追蹤股市指數，當大盤大跌時，它幾乎無可避免會跟著下跌。</strong>例如 2020 年新冠疫情爆發初期，全球股市急跌，連帶使得各種股票型 ETF 也出現大幅回落。這提醒我們，即便是分散風險的工具，也仍舊會受到市場環境的影響。</p>
+        </section>
+
+        <!-- 債券型 ETF 深入解析 -->
+        <section class="bond-etf-section mb-5">
+          <div class="intro-quote mb-5">
+            <div class="quote-content">
+              <p>當我們談到 ETF 的時候，許多人第一時間會想到股票型 ETF，因為它們與新聞中的股市漲跌息息相關，也最能吸引大眾的注意。然而，若我們的目標不只是追求高報酬，而是希望在風險與穩定之間取得平衡，那麼債券型 ETF 就是一個值得深入理解的選項。</p>
+              <div class="quote-decoration"></div>
+            </div>
+          </div>
+
+          <h3 class="section-title mb-4">什麼是債券？</h3>
+          <p>要理解債券型 ETF，必須先從「債券」這個金融工具說起。<strong>債券的本質，是一種「借貸憑證」。</strong>當政府需要資金來修建道路、建設學校或推動公共政策，或者當企業需要資金來擴張業務、購買設備時，他們會透過發行債券來向大眾籌款。購買債券的人，就等於是借錢給政府或企業，作為回報，債券發行人會定期支付利息，並在到期時償還本金。</p>
+
+          <p>這樣的關係其實在日常生活中隨處可見。想像一下，如果同學之間互相借錢，借的人答應一個月後不僅還你本金，還要額外請你喝飲料，這就很接近債券的概念。不同的是，債券的規模更大，借錢的一方通常是政府或企業，借出去的人則是投資人或金融機構。</p>
+
+          <h3 class="section-title mb-4">債券型 ETF 的運作原理</h3>
+          <p>債券型 ETF 的設計，就是把許多不同的債券集中起來，組成一個投資組合，再透過交易所發行。這樣一來，投資人只要買一檔債券型 ETF，就等於同時擁有了一籃子的債券，不需要逐一去購買單一債券。這不僅大幅降低了投資門檻，也讓投資人能分散風險。</p>
+
+          <!-- 債券型 ETF 特性比較 -->
+          <div class="bond-vs-stock-comparison my-5">
+            <h4 class="text-center mb-4">債券 vs 股票：特性比較</h4>
+            <div class="visual-comparison-table">
+              <!-- 表頭 -->
+              <div class="comparison-header-row">
+                <div class="header-cell feature-header">比較特性</div>
+                <div class="header-cell stock-header">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px">
+                    <path d="M3 3v18h18"></path>
+                    <polyline points="6 14 10 10 14 13 20 7"></polyline>
+                  </svg>
+                  股票型 ETF
+                </div>
+                <div class="header-cell bond-header">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px; margin-right:6px">
+                    <path d="M12 3l7 4v5c0 4-2.7 7.5-7 9-4.3-1.5-7-5-7-9V7l7-4z"></path>
+                  </svg>
+                  債券型 ETF
+                </div>
+              </div>
+
+              <!-- 風險等級 -->
+              <div class="comparison-content-row">
+                <div class="feature-cell">
+                  <span class="feature-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                      <line x1="12" y1="9" x2="12" y2="13"></line>
+                      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                  </span>
+                  <span class="feature-name">風險等級</span>
+                </div>
+                <div class="stock-cell">
+                  <span class="level-badge high">高</span>
+                  <p class="cell-desc">市場波動較大</p>
+                </div>
+                <div class="bond-cell">
+                  <span class="level-badge low">低</span>
+                  <p class="cell-desc">相對穩定</p>
+                </div>
+              </div>
+
+              <!-- 預期報酬 -->
+              <div class="comparison-content-row">
+                <div class="feature-cell">
+                  <span class="feature-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px">
+                      <rect x="3" y="7" width="18" height="10" rx="2"></rect>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </span>
+                  <span class="feature-name">預期報酬</span>
+                </div>
+                <div class="stock-cell">
+                  <span class="level-badge high">高</span>
+                  <p class="cell-desc">長期成長潛力大</p>
+                </div>
+                <div class="bond-cell">
+                  <span class="level-badge medium">中</span>
+                  <p class="cell-desc">固定利息收入</p>
+                </div>
+              </div>
+
+              <!-- 波動性 -->
+              <div class="comparison-content-row">
+                <div class="feature-cell">
+                  <span class="feature-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px">
+                      <line x1="4" y1="19" x2="20" y2="19"></line>
+                      <rect x="6" y="12" width="3" height="7"></rect>
+                      <rect x="11" y="9" width="3" height="10"></rect>
+                      <rect x="16" y="6" width="3" height="13"></rect>
+                    </svg>
+                  </span>
+                  <span class="feature-name">波動性</span>
+                </div>
+                <div class="stock-cell">
+                  <span class="level-badge high">高</span>
+                  <p class="cell-desc">價格變化明顯</p>
+                </div>
+                <div class="bond-cell">
+                  <span class="level-badge low">低</span>
+                  <p class="cell-desc">價格較為穩定</p>
+                </div>
+              </div>
+
+              <!-- 主要功能 -->
+              <div class="comparison-content-row">
+                <div class="feature-cell">
+                  <span class="feature-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1976D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px">
+                      <circle cx="12" cy="12" r="8"></circle>
+                      <circle cx="12" cy="12" r="4"></circle>
+                      <circle cx="12" cy="12" r="1"></circle>
+                    </svg>
+                  </span>
+                  <span class="feature-name">主要功能</span>
+                </div>
+                <div class="stock-cell">
+                  <span class="function-tag">資本增值</span>
+                  <p class="cell-desc">追求價差收益</p>
+                </div>
+                <div class="bond-cell">
+                  <span class="function-tag">資產保值</span>
+                  <p class="cell-desc">穩定現金流</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="section-title mb-4">債券型 ETF 的重要特性</h3>
+          <p>債券型 ETF 有幾個重要特性。首先是「相對穩定」。相比於股票，債券的價格波動較小，因為它的報酬主要來自固定利息，而不是公司營運的盈虧。對於追求穩定現金流的人來說，債券型 ETF 是一個很好的選擇。舉個生活化的比喻，股票像是參加比賽的選手，表現有高有低，充滿變數；而債券則像是一份兼職工作，雖然不會一夕暴富，但每個月都有固定薪水，讓人安心。</p>
+
+          <p>其次，債券型 ETF 的風險來源與股票不同。股票最大的風險是公司經營失敗，股價歸零；而債券的風險則來自「違約」。所謂違約，就是發行債券的政府或企業無法按時支付利息或償還本金。一般而言，政府發行的國債違約風險極低，因為政府有課稅與發行貨幣的能力；而企業債的風險則會依照公司的信用狀況有所不同。</p>
+
+          <h3 class="section-title mb-4">台灣市場的債券型 ETF</h3>
+          <p>在台灣市場，常見的債券型 ETF 包括追蹤「美國公債」的產品，例如「國泰 20 年美債 ETF」，或是追蹤「投資等級公司債」的 ETF，例如「元大投資級公司債」。這些產品讓投資人能夠透過台灣的交易所，間接參與國際債券市場，而不需要跨海開戶。舉例來說，如果你買進一檔美國公債型 ETF，就等於是間接把錢借給美國政府，並透過 ETF 收取利息收益。</p>
+
+          <h3 class="section-title mb-4">債券型 ETF 的避險功能</h3>
+          <p>債券型 ETF 還有一個重要的功能，就是「對沖風險」。在金融市場中，股票與債券通常呈現一定程度的反向關係。當股市大跌時，投資人往往會把資金轉移到債券市場尋求避險，因此債券價格往往在股市不佳時表現較好。這就好比一個學生同時參加數理競賽與音樂比賽，如果數理成績一時不理想，他仍能透過音樂比賽保持亮眼表現，整體來說不會輸得太慘。</p>
+
+          <h3 class="section-title mb-4">債券型 ETF 的風險</h3>
+          <p>然而，債券型 ETF 也並非完全沒有風險。除了違約風險之外，還有「利率風險」<strong>。當市場利率上升時，新發行的債券會有更高的利率，導致舊有的低利率債券吸引力下降，價格自然下跌。</strong>這意味著投資人如果在利率上升期間持有債券型 ETF，帳面上可能會出現虧損。</p>
+
+          <p>對於高中生而言，可以把利率風險想像成「手機新款推出」的狀況。假設你去年花 3 萬元買了一支手機，當時覺得很划算；但今年新款手機推出，功能更好，價格卻還是一樣 3 萬元，這使得你手上的舊手機相對不值錢。如果你要轉賣，可能只能賣到 2 萬多元。債券的情況也類似，當新債券提供更高的利率，舊債券的市場價格就會下跌。</p>
+
+          <p class="mt-4"><strong>這段話聽起來有點繞口，對吧？別擔心，我們直接進入「手機拍賣會」，你馬上就能體會到『利率風險』的威力了！</strong></p>
+
+          <!-- 互動小遊戲：二手手機拍賣會 -->
+          <div class="phone-auction-section mt-5 mb-5">
+            <h3 class="game-title text-center mb-4">📱 互動小遊戲：【二手手機拍賣會】 📱</h3>
+            
+            <!-- 劇情故事板 -->
+            <div class="phone-story-container">
+              <div class="story-display" id="storyDisplay">
+                <div class="story-content">
+                  <p class="story-intro-text">
+                    📖 準備好了嗎？讓我們一起體驗「利率風險」的真實情境！
+                  </p>
+                </div>
+              </div>
+              
+              <div class="story-controls">
+                <button class="game-button" onclick="nextStoryStep()" id="start-game-btn">
+                  點此開始故事...
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 結論區塊 - 預設隱藏 -->
+          <div id="conclusion-block" class="conclusion-section" style="display: none;">
+            <div class="conclusion-card">
+              <h4 class="conclusion-title">💡 這就是「利率風險」！</h4>
+              <div class="conclusion-content">
+                <p><strong>你剛剛親身經歷了「利率風險」！</strong></p>
+                <br>
+                <p>當市場利率上升時... (就像新款 5% 手機上市)</p>
+                <p>你手上舊的、低利率的債券... (你那支 2% 的舊手機)</p>
+                <p>吸引力就會下降，導致市場價格下跌！ (你帳面上立刻虧損了 $600！)</p>
+                <br>
+                <p><strong>這就是為什麼 2022 年央行瘋狂升息時，連最安全的「債券 ETF」價格也會大跌的原因！</strong></p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="section-title mb-4">資產配置的重要性</h3>
+          <p>儘管如此，債券型 ETF 仍然是資產配置中不可或缺的一環。它的存在讓投資人能在追求報酬的同時，擁有一份安全墊。特別是對於剛開始接觸投資的新手，理解「股票型 ETF 與債券型 ETF的互補關係」是建立正確投資觀念的重要基礎。</p>
+
+          <p>舉個綜合的例子來說，如果一位學生畢業後開始工作，每個月有固定薪水，他希望未來能存錢買房或進修。他可以把大部分資金投入股票型 ETF，期待獲得較高報酬；同時，也分配部分資金在債券型 ETF，以降低整體波動。這就像是學生在課業與社團之間分配時間，一方面追求卓越，一方面確保穩定，不至於因單一領域失利而全盤皆輸。</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- 下一頁按鈕 -->
+    <div class="next-page-section text-center py-5 my-5">
+      <div class="next-page-banner p-4 rounded-lg">
+        <h3 class="mb-3">準備好學習下一個主題了嗎？</h3>
+        <p class="lead mb-4">接下來我們將學習 ETF 投資實戰技巧</p>
+        <a href="/week6_strategy" class="btn btn-primary btn-lg">
+          前往下一章節
+          <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 返回按鈕（保持在卡片之外） -->
+  <div class="text-center mt-5 mb-4">
+    <a href="/week6" class="btn btn-secondary me-3">返回上一頁</a>
+    <a href="/map" class="btn btn-secondary">返回學習地圖</a>
+  </div>
+
+  <!-- ETF 小助手（保持在卡片之外） -->
+  <div class="ai-assistant">
+    <button class="ai-toggle-btn" onclick="toggleAIChat()">
+      <span class="ai-icon">🤖</span>
+      <span class="ai-label">ETF 小助手</span>
+    </button>
+    
+    <div class="ai-chat-container" id="aiChat">
+      <div class="ai-chat-header">
+        <h5 class="mb-0">ETF 小助手</h5>
+        <button class="close-btn" onclick="toggleAIChat()">×</button>
+      </div>
+      <div class="ai-chat-messages" id="aiMessages">
+        <div class="ai-message">
+          <span class="ai-icon">🤖</span>
+          <div class="message-content">
+            你好！我是 ETF 投資小助手。請選擇您想了解的問題：
+          </div>
+        </div>
+        <div class="question-buttons">
+          <button class="preset-question" onclick="askPresetQuestion('什麼是 ETF？為什麼要投資 ETF？')">
+            什麼是 ETF？為什麼要投資 ETF？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('ETF 和股票基金有什麼不同？')">
+            ETF 和股票基金有什麼不同？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('如何選擇適合自己的 ETF？')">
+            如何選擇適合自己的 ETF？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('ETF 投資有哪些風險？')">
+            ETF 投資有哪些風險？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('0050 和 0056 有什麼差別？')">
+            0050 和 0056 有什麼差別？
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/week6_why_invest.js') }}"></script>
+{% endblock %}
+

@@ -1,0 +1,912 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- 添加 Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.quiz-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quiz-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem;
+}
+
+.form-check {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.2rem 1.8rem;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  user-select: none;
+}
+
+.form-check:hover {
+  background: #f0f7ff;
+  border-color: #90caf9;
+}
+
+.form-check:active {
+  transform: scale(0.99);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.form-check.selected {
+  background: #e3f2fd;
+  border-color: #1976d2;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
+}
+
+.form-check.correct {
+  background: #e8f5e9 !important;
+  border-color: #4caf50 !important;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25) !important;
+}
+
+.form-check.wrong {
+  background: #ffebee !important;
+  border-color: #f44336 !important;
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.25) !important;
+}
+
+.form-check-label {
+  font-size: 1.2rem;
+  color: #333;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.form-check-input {
+  width: 1.4em;
+  height: 1.4em;
+  margin-top: 0.2em;
+  cursor: pointer;
+}
+
+.form-check-label::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+h5.mb-3 {
+  font-size: 1.5rem;
+  color: #1a73e8;
+  margin-bottom: 1.5rem !important;
+}
+
+.btn {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.5rem;
+}
+
+.alert {
+  font-size: 1.1rem;
+}
+
+#quiz-answer-1, #quiz-answer-2 {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.completion {
+  padding: 2rem;
+  background: #e8f5e9;
+  border-radius: 15px;
+  margin-top: 2rem;
+}
+
+.hint-box {
+  background: #fff8e1;
+  border-left: 4px solid #ffc107;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.hint-box.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-hint {
+  background: #ffc107;
+  border-color: #ffc107;
+  color: #333;
+  font-weight: 600;
+}
+
+.btn-hint:hover {
+  background: #ffb300;
+  border-color: #ffb300;
+  color: #333;
+}
+
+/* 進度條樣式 */
+.quiz-progress-container {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.progress-bar-wrapper {
+  background: #e0e0e0;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1a73e8 0%, #4CAF50 100%);
+  transition: width 0.4s ease;
+  border-radius: 10px;
+}
+
+.progress-text {
+  text-align: center;
+  color: #666;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* 選項內解釋樣式 */
+.option-explanation {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding: 0 12px;
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    padding: 12px;
+  }
+}
+
+.form-check.correct .option-explanation {
+  color: #2e7d32;
+  border-left: 3px solid #4caf50;
+}
+
+.form-check.wrong .option-explanation {
+  color: #c62828;
+  border-left: 3px solid #f44336;
+}
+
+/* 隱藏原本下方的答案區塊 */
+#quiz-answer-1, #quiz-answer-2, #quiz-answer-3, #quiz-answer-4, 
+#quiz-answer-5, #quiz-answer-6, #quiz-answer-7, #quiz-answer-8, 
+#quiz-answer-9, #quiz-answer-10 {
+  display: none !important;
+}
+
+/* 下一題按鈕顯示在選項下方 */
+.next-question-btn-container {
+  text-align: center;
+  margin-top: 25px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.next-question-btn-container.show {
+  opacity: 1;
+}
+
+/* 新增通過/未通過提示樣式 */
+.pass-status {
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.pass-status.passed {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  color: #2e7d32;
+  border: 3px solid #4caf50;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.pass-status.failed {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe082 100%);
+  color: #e65100;
+  border: 3px solid #ff9800;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.pass-status-icon {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+</style>
+
+<div class="container mt-5">
+  <div class="quiz-section text-center">
+    <h1 class="fw-bold mb-4">ETF 投資小測驗</h1>
+    <p class="lead mb-4">歡迎來到 ETF 投資小測驗！(如果離開頁面，進度將會遺失！)</p>
+    <div class="mb-5">
+      <a href="/week6" class="btn btn-outline-primary">返回第六週學習內容</a>
+    </div>
+
+    <!-- 進度條 -->
+    <div class="quiz-progress-container">
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+      </div>
+      <div class="progress-text" id="progressText">第 1 題 / 共 10 題</div>
+    </div>
+
+    <!-- 問題 1 -->
+    <div id="question-1" class="quiz-card mt-5 text-start" style="max-width: 600px; margin: 0 auto;">
+      <h5 class="mb-3">1. 根據文本，ETF（指數股票型基金）最貼切的生活化比喻是什麼？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(1)">💡 需要提示？</button>
+      </div>
+      <div id="hint-1" class="hint-box">
+        <strong>💡 提示：</strong>想想看，ETF 的特色是「一次買進多種標的」，哪個比喻最符合？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(1, 'A')">
+          <div class="form-check-label">
+            A. 單點一道昂貴的牛排
+            <div class="option-explanation" id="explanation-1-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(1, 'B')">
+          <div class="form-check-label">
+            B. 集合眾人資金的儲蓄罐
+            <div class="option-explanation" id="explanation-1-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(1, 'C')">
+          <div class="form-check-label">
+            C. 菜色多樣、一次取用的自助餐
+            <div class="option-explanation" id="explanation-1-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(1, 'D')">
+          <div class="form-check-label">
+            D. 一張保證獲利的樂透彩券
+            <div class="option-explanation" id="explanation-1-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-1">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(2)">下一題 →</button>
+      </div>
+    </div>
+
+    <div id="question-2" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">2. 文本將股票型ETF和債券型ETF比喻為自助餐的兩大主菜。如果一位投資人追求較高的潛在報酬，但願意承受較大的價格波動，他應該優先選擇哪一類？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(2)">💡 需要提示？</button>
+      </div>
+      <div id="hint-2" class="hint-box">
+        <strong>💡 提示：</strong>高報酬通常伴隨高風險，哪一種 ETF 波動較大？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(2, 'A')">
+          <div class="form-check-label">
+            A. 股票型ETF，如同高變動、高潛力的風味料理
+            <div class="option-explanation" id="explanation-2-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(2, 'B')">
+          <div class="form-check-label">
+            B. 債券型ETF，如同穩健、安心的傳統家常菜
+            <div class="option-explanation" id="explanation-2-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(2, 'C')">
+          <div class="form-check-label">
+            C. 商品型ETF，例如黃金或石油
+            <div class="option-explanation" id="explanation-2-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(2, 'D')">
+          <div class="form-check-label">
+            D. 主題型ETF，例如電動車ETF
+            <div class="option-explanation" id="explanation-2-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-2">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(3)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 3 -->
+    <div id="question-3" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">3. 文本中提到的「0050 元大台灣50」和「0056 元大高股息」是台灣很受歡迎的ETF。請問「0056」的主要特色是什麼？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(3)">💡 需要提示？</button>
+      </div>
+      <div id="hint-3" class="hint-box">
+        <strong>💡 提示：</strong>0056 的名稱中有「高股息」，想想看它追蹤的是什麼樣的公司？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(3, 'A')">
+          <div class="form-check-label">
+            A. 追蹤台灣市值前50大公司，目標是跟隨大盤表現
+            <div class="option-explanation" id="explanation-3-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(3, 'B')">
+          <div class="form-check-label">
+            B. 專注於高科技產業，如蘋果、微軟
+            <div class="option-explanation" id="explanation-3-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(3, 'C')">
+          <div class="form-check-label">
+            C. 追蹤美國S&P500指數，分散到國際市場
+            <div class="option-explanation" id="explanation-3-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(3, 'D')">
+          <div class="form-check-label">
+            D. 專注於配發較高現金股利的公司，適合追求穩定現金流的投資人
+            <div class="option-explanation" id="explanation-3-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-3">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(4)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 4 -->
+    <div id="question-4" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">4. 根據文本，債券型ETF雖然相對穩健，但也存在風險。當市場利率「上升」時，舊有的債券型ETF價格最可能發生什麼情況？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(4)">💡 需要提示？</button>
+      </div>
+      <div id="hint-4" class="hint-box">
+        <strong>💡 提示：</strong>想像新款手機出來了，舊手機會發生什麼事？利率也是一樣的道理。
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(4, 'A')">
+          <div class="form-check-label">
+            A. 價格上升，因為利息收入增加了
+            <div class="option-explanation" id="explanation-4-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(4, 'B')">
+          <div class="form-check-label">
+            B. 價格下跌，因為舊債券的低利率吸引力下降
+            <div class="option-explanation" id="explanation-4-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(4, 'C')">
+          <div class="form-check-label">
+            C. 價格不變，因為債券有固定利息
+            <div class="option-explanation" id="explanation-4-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(4, 'D')">
+          <div class="form-check-label">
+            D. 價格會轉換成股票，以規避風險
+            <div class="option-explanation" id="explanation-4-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-4">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(5)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 5 -->
+    <div id="question-5" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">5. 文本提到，新手購買ETF時需要注意相關費用。除了像買賣股票一樣的「交易手續費」外，還有一種會長期影響報酬，由基金公司收取以維護ETF運作的費用是什麼？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(5)">💡 需要提示？</button>
+      </div>
+      <div id="hint-5" class="hint-box">
+        <strong>💡 提示：</strong>基金公司每年會收取一筆固定比例的費用來維持 ETF 運作，這筆費用叫做...？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(5, 'A')">
+          <div class="form-check-label">
+            A. 溢價（Premium）
+            <div class="option-explanation" id="explanation-5-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(5, 'B')">
+          <div class="form-check-label">
+            B. 折價（Discount）
+            <div class="option-explanation" id="explanation-5-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(5, 'C')">
+          <div class="form-check-label">
+            C. 管理費（或稱總費用率）
+            <div class="option-explanation" id="explanation-5-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(5, 'D')">
+          <div class="form-check-label">
+            D. 違約風險金（Default Risk Premium）
+            <div class="option-explanation" id="explanation-5-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-5">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(6)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 6 -->
+    <div id="question-6" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">6. 針對ETF的投資方式，文本提到一種適合新手培養紀律的策略，是「每月投入固定金額，不管市場高低都持續累積」。這種方式稱為什麼？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(6)">💡 需要提示？</button>
+      </div>
+      <div id="hint-6" class="hint-box">
+        <strong>💡 提示：</strong>這種投資方式強調「固定時間、固定金額」，像存零用錢一樣。
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(6, 'A')">
+          <div class="form-check-label">
+            A. 一次投入（Lump Sum）
+            <div class="option-explanation" id="explanation-6-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(6, 'B')">
+          <div class="form-check-label">
+            B. 定期定額
+            <div class="option-explanation" id="explanation-6-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(6, 'C')">
+          <div class="form-check-label">
+            C. 追逐主題（Thematic Chasing）
+            <div class="option-explanation" id="explanation-6-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(6, 'D')">
+          <div class="form-check-label">
+            D. 高賣低買（Timing the Market）
+            <div class="option-explanation" id="explanation-6-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-6">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(7)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 7 -->
+    <div id="question-7" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">7. 股票型ETF透過持有一籃子股票來分散風險，但文本也提醒它並非毫無風險。股票型ETF最主要的風險是什麼？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(7)">💡 需要提示？</button>
+      </div>
+      <div id="hint-7" class="hint-box">
+        <strong>💡 提示：</strong>ETF 緊密追蹤指數，當整個市場下跌時，ETF 會怎麼樣？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(7, 'A')">
+          <div class="form-check-label">
+            A. 利率上升導致價格下跌的風險
+            <div class="option-explanation" id="explanation-7-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(7, 'B')">
+          <div class="form-check-label">
+            B. 單一公司經營失敗導致ETF歸零的風險
+            <div class="option-explanation" id="explanation-7-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(7, 'C')">
+          <div class="form-check-label">
+            C. 追蹤的整體股市（大盤）下跌時，ETF價格也會跟著下跌的風險
+            <div class="option-explanation" id="explanation-7-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(7, 'D')">
+          <div class="form-check-label">
+            D. 流動性不足，想賣卻賣不掉的風險
+            <div class="option-explanation" id="explanation-7-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-7">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(8)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 8 -->
+    <div id="question-8" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">8. 要理解債券型ETF，必須先懂「債券」。根據文本，債券的本質最接近下列何者？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(8)">💡 需要提示？</button>
+      </div>
+      <div id="hint-8" class="hint-box">
+        <strong>💡 提示：</strong>債券是一種借貸關係，購買債券的人等於是...？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(8, 'A')">
+          <div class="form-check-label">
+            A. 公司的所有權股份
+            <div class="option-explanation" id="explanation-8-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(8, 'B')">
+          <div class="form-check-label">
+            B. 一種「借貸憑證」，購買人借錢給政府或企業以換取利息
+            <div class="option-explanation" id="explanation-8-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(8, 'C')">
+          <div class="form-check-label">
+            C. 追蹤黃金或石油價格的憑證
+            <div class="option-explanation" id="explanation-8-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(8, 'D')">
+          <div class="form-check-label">
+            D. 賭場中的籌碼，用來參與市場漲跌
+            <div class="option-explanation" id="explanation-8-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-8">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(9)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 9 -->
+    <div id="question-9" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">9. 文本在「新手上路」章節提到，選擇ETF時應注意「流動性」。請問「流動性」高低代表什麼意思？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(9)">💡 需要提示？</button>
+      </div>
+      <div id="hint-9" class="hint-box">
+        <strong>💡 提示：</strong>流動性指的是交易的難易度，能不能輕鬆買賣而不影響價格。
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(9, 'A')">
+          <div class="form-check-label">
+            A. 這檔ETF的配息頻率有多高
+            <div class="option-explanation" id="explanation-9-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(9, 'B')">
+          <div class="form-check-label">
+            B. 這檔ETF的管理費用有多低
+            <div class="option-explanation" id="explanation-9-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(9, 'C')">
+          <div class="form-check-label">
+            C. 能否輕鬆買賣而不太會影響到價格
+            <div class="option-explanation" id="explanation-9-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(9, 'D')">
+          <div class="form-check-label">
+            D. 這檔ETF追蹤的產業是否熱門
+            <div class="option-explanation" id="explanation-9-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-9">
+        <button type="button" class="btn btn-primary" onclick="goToQuestion(10)">下一題 →</button>
+      </div>
+    </div>
+
+    <!-- 問題 10 -->
+    <div id="question-10" class="quiz-card mt-4 text-start" style="max-width: 600px; margin: 0 auto; display:none;">
+      <h5 class="mb-3">10. 文本提到ETF的價格會受到「市場供需」與「標的資產淨值」影響。如果一檔ETF在市場上的交易價格「高於」它所持有的資產實際價值，這種情況稱為什麼？</h5>
+      <div class="mb-3">
+        <button type="button" class="btn btn-hint btn-sm" onclick="toggleHint(10)">💡 需要提示？</button>
+      </div>
+      <div id="hint-10" class="hint-box">
+        <strong>💡 提示：</strong>市價高於淨值時，這種現象叫做...？折價還是溢價？
+      </div>
+      <form>
+        <div class="form-check mb-2" onclick="selectAnswer(10, 'A')">
+          <div class="form-check-label">
+            A. 折價 (Discount)
+            <div class="option-explanation" id="explanation-10-A" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(10, 'B')">
+          <div class="form-check-label">
+            B. 溢價 (Premium)
+            <div class="option-explanation" id="explanation-10-B" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(10, 'C')">
+          <div class="form-check-label">
+            C. 淨值 (Net Asset Value)
+            <div class="option-explanation" id="explanation-10-C" style="display:none;"></div>
+          </div>
+        </div>
+        <div class="form-check mb-2" onclick="selectAnswer(10, 'D')">
+          <div class="form-check-label">
+            D. 總費用率 (Expense Ratio)
+            <div class="option-explanation" id="explanation-10-D" style="display:none;"></div>
+          </div>
+        </div>
+      </form>
+      <div class="next-question-btn-container" id="next-btn-10">
+        <button type="button" class="btn btn-success" onclick="goToQuestion(11)">完成測驗</button>
+      </div>
+    </div>
+
+    <!-- 完成畫面 -->
+    <div id="completion" class="mt-4 text-center" style="display:none;">
+      <!-- 通過/未通過提示 -->
+      <div id="pass-status-message" class="pass-status"></div>
+      
+      <div class="alert alert-info">
+        <h4 class="mb-0">🌟 測驗完成！</h4>
+        <p id="score-text" class="mt-2 mb-0" style="font-size: 1.2rem;"></p>
+      </div>
+      <div style="width: 200px; margin: 2rem auto;">
+        <canvas id="scoreChart"></canvas>
+      </div>
+      <div class="mt-4">
+        <button class="btn btn-warning me-3" onclick="restartQuiz()">
+          <i class="fas fa-redo-alt me-2"></i>再試一次
+        </button>
+        <a href="/map" class="btn btn-primary">返回學習地圖</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedAnswers = {};
+let correctAnswers = 0;
+const totalQuestions = 10;
+const correctAnswerMap = { 1: 'C', 2: 'A', 3: 'D', 4: 'B', 5: 'C', 6: 'B', 7: 'C', 8: 'B', 9: 'C', 10: 'B' };
+const explanations = {
+  1: {
+    A: '答錯了。文本提到，單點一道菜（如牛排）好比直接買單一股票，風險集中。',
+    B: '答錯了。這比較像傳統基金的概念，但ETF還多了像股票一樣方便交易的特性。',
+    C: '答對了！文本以自助餐比喻ETF，表示它能讓人一次吃到多樣化組合（分散風險），既省時也避免選錯的風險。',
+    D: '答錯了。投資皆有風險，ETF也不例外（例如股市下跌風險），它並非保證獲利。'
+  },
+  2: {
+    A: '答對了！文本描述股票型ETF偏向高變動、高潛力，雖然風險較高，但報酬潛力也較大。',
+    B: '答錯了。文本描述債券型ETF相對穩健，價格波動較小，適合追求安心的投資人。',
+    C: '答錯了。雖然這也是ETF的一種，但題目是針對文本中「兩大主菜」（股票型與債券型）的比喻提問。',
+    D: '答錯了。主題型ETF通常波動劇烈，可能不適合新手，且題目是問股票型和債券型這兩大類的比較。'
+  },
+  3: {
+    A: '答錯了。這是「0050 元大台灣50」的特色。',
+    B: '答錯了。這是追蹤美國納斯達克100指數的QQQ的特色，不是0056。',
+    C: '答錯了。這是SPY這類ETF的特色，不是0056。',
+    D: '答對了！文本明確指出，0056追蹤「台灣高股息指數」，偏好能帶來較穩定配息收入的公司。'
+  },
+  4: {
+    A: '答錯了。市場利率上升時，是新發行的債券利率更高，舊債券的利息並不會因此增加。',
+    B: '答對了！文本說明，當市場利率上升，新債券利率更高，會導致旧的低利率債券吸引力下降，價格隨之下跌。',
+    C: '答錯了。雖然債券利息固定，但其在市場上的「交易價格」會隨利率變動而反向變動。',
+    D: '答錯了。債券型ETF不會自動轉換成股票，它們是不同類型的資產。'
+  },
+  5: {
+    A: '答錯了。溢價是指市價高於淨值的現象，並非基金公司收取的固定費用。',
+    B: '答錯了。折價是指市價低於淨值的現象，並非基金公司收取的固定費用。',
+    C: '答對了！文本指出，「管理費」或「總費用率」是基金公司為維護ETF運作所收取的費用，長期累積會影響報酬。',
+    D: '答錯了。違約風險是債券的潛在風險，而不是所有ETF都會收取的一種費用。'
+  },
+  6: {
+    A: '答錯了。「一次投入」是指在有資金時直接買進，與每月固定投入不同。',
+    B: '答對了！文本描述「定期定額」即是每月投入固定金額，好處是平滑風險，適合培養紀律。',
+    C: '答錯了。這是指追逐熱門題材，並非指固定的投資方式。',
+    D: '答錯了。這需要判斷市場高低點，而「定期定額」是「不管市場高低」都持續投入。'
+  },
+  7: {
+    A: '答錯了。這是債券型ETF的主要風險之一，稱為「利率風險」。',
+    B: '答錯了。ETF持有多檔股票，分散了單一公司倒閉的風險，因此ETF極難歸零。',
+    C: '答對了！文本提到，ETF緊密追蹤指數，當大盤大跌時，它幾乎無可避免會跟著下跌。',
+    D: '答錯了。流動性風險確實存在於某些成交量低的ETF，但對多數股票型ETF而言，最主要的風險是來自整體市場的波動。'
+  },
+  8: {
+    A: '答錯了。公司的所有權股份指的是「股票」，不是債券。',
+    B: '答對了！文本明確定義，債券的本質是「借貸憑證」，購買債券等於借錢給發行人。',
+    C: '答錯了。這是「商品型ETF」在追蹤的標的，不是債券本身。',
+    D: '答錯了。債券的報酬主要來自固定利息，雖然價格會波動，但本質是借貸關係，不是賭博籌碼。'
+  },
+  9: {
+    A: '答錯了。配息頻率與流動性無關，高股息ETF關心的是配息。',
+    B: '答錯了。管理費用是持有成本，流動性是指交易的難易度。',
+    C: '答對了！文本解釋，「流動性」指的是能不能輕鬆買賣而不會影響價格，成交量低的ETF就有流動性風險。',
+    D: '答錯了。熱門產業的ETF（如主題型ETF） 通常流動性較高，但流動性本身是衡量交易的難易度，而不等於熱門程度。'
+  },
+  10: {
+    A: '答錯了。折價是指交易價格「低於」實際價值。',
+    B: '答對了！文本明確指出，「溢價」意味著投資人買ETF的價格比它實際價值高。',
+    C: '答錯了。淨值是指ETF所持有資產的「實際價值」，而不是市價高於淨值的「現象」。',
+    D: '答錯了。這是指ETF的管理費用，與市價和淨值的差額無關。'
+  }
+
+  // ...3-10 的解釋依此類推...
+};
+
+let scoreChartInstance = null;
+
+function updateProgress(currentQuestion) {
+  const progress = (currentQuestion / totalQuestions) * 100;
+  document.getElementById('progressBar').style.width = progress + '%';
+  document.getElementById('progressText').textContent = `第 ${currentQuestion} 題 / 共 ${totalQuestions} 題`;
+}
+
+function toggleHint(questionNum) {
+  const hintBox = document.getElementById(`hint-${questionNum}`);
+  hintBox.classList.toggle('show');
+}
+
+function selectAnswer(questionNum, value) {
+  if (selectedAnswers[questionNum]) return;
+  selectedAnswers[questionNum] = value;
+  showQuizAnswer(questionNum, value);
+}
+
+function showQuizAnswer(questionNum, selectedValue) {
+  const correctAnswer = correctAnswerMap[questionNum];
+  const isCorrect = selectedValue === correctAnswer;
+  
+  const allOptions = document.querySelectorAll(`#question-${questionNum} .form-check`);
+  allOptions.forEach((el, index) => {
+    const optionValue = ['A', 'B', 'C', 'D'][index];
+    el.style.pointerEvents = 'none';
+    
+    if (optionValue === selectedValue) {
+      // 使用者選擇的選項
+      el.classList.add(isCorrect ? 'correct' : 'wrong');
+      
+      // 在選項內顯示解釋
+      const explanationDiv = document.getElementById(`explanation-${questionNum}-${selectedValue}`);
+      if (explanationDiv) {
+        explanationDiv.textContent = explanations[questionNum][selectedValue];
+        explanationDiv.style.display = 'block';
+      }
+    } else if (optionValue === correctAnswer && !isCorrect) {
+      // 若答錯，標示正確答案
+      el.classList.add('correct');
+    }
+  });
+  
+  if (isCorrect) {
+    correctAnswers++;
+  }
+  
+  // 顯示下一題按鈕
+  const nextBtn = document.getElementById(`next-btn-${questionNum}`);
+  if (nextBtn) {
+    nextBtn.classList.add('show');
+  }
+  
+  // 更新進度條
+  updateProgress(questionNum);
+}
+
+function goToQuestion(n) {
+  document.querySelectorAll('[id^="question-"]').forEach(el => el.style.display = 'none');
+  if (n <= totalQuestions) {
+    document.getElementById('question-' + n).style.display = 'block';
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showCompletion();
+  }
+}
+
+function showCompletion() {
+  document.querySelectorAll('[id^="question-"]').forEach(el => el.style.display = 'none');
+  document.querySelector('.quiz-progress-container').style.display = 'none';
+  document.getElementById('completion').style.display = 'block';
+  
+  // 顯示通過/未通過訊息
+  const passStatusDiv = document.getElementById('pass-status-message');
+  if (correctAnswers >= 8) {
+    passStatusDiv.innerHTML = '<span class="pass-status-icon">🎉</span>恭喜通過！看來你學得還不錯';
+    passStatusDiv.className = 'pass-status passed';
+  } else {
+    passStatusDiv.innerHTML = '<span class="pass-status-icon">📚</span>看來還有觀念不夠清楚哦～再複習一下吧！';
+    passStatusDiv.className = 'pass-status failed';
+  }
+  
+  updateScore();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateScore() {
+  document.getElementById('score-text').textContent = `總共 ${totalQuestions} 題，你答對了 ${correctAnswers} 題！`;
+  if (scoreChartInstance) scoreChartInstance.destroy();
+  const ctx = document.getElementById('scoreChart').getContext('2d');
+  scoreChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['答對', '答錯'],
+      datasets: [{
+        data: [correctAnswers, totalQuestions - correctAnswers],
+        backgroundColor: ['rgba(100, 181, 246, 0.8)', 'rgba(255, 183, 77, 0.8)'],
+        borderWidth: 0,
+        borderRadius: 5,
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 20, font: { size: 14 } } }
+      },
+      cutout: '70%'
+    }
+  });
+}
+
+function restartQuiz() {
+  selectedAnswers = {};
+  correctAnswers = 0;
+  for (let i = 1; i <= totalQuestions; i++) {
+    document.querySelectorAll(`#question-${i} .form-check`).forEach(el => {
+      el.classList.remove('correct', 'wrong');
+      el.style.pointerEvents = 'auto';
+      // 隱藏所有解釋
+      el.querySelectorAll('.option-explanation').forEach(exp => exp.style.display = 'none');
+    });
+    const hint = document.getElementById(`hint-${i}`);
+    if (hint) hint.classList.remove('show');
+    const nextBtn = document.getElementById(`next-btn-${i}`);
+    if (nextBtn) nextBtn.classList.remove('show');
+  }
+  if (scoreChartInstance) {
+    scoreChartInstance.destroy();
+    scoreChartInstance = null;
+  }
+  document.getElementById('completion').style.display = 'none';
+  document.querySelector('.quiz-progress-container').style.display = 'block';
+  document.getElementById('question-1').style.display = 'block';
+  updateProgress(1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 初始化進度條
+updateProgress(1);
+</script>
+{% endblock %}

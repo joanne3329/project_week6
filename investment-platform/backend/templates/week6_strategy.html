@@ -1,0 +1,940 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <!-- 章節進度指示 -->
+  <div class="chapter-progress text-center mb-4">
+    <div class="chapters">
+      <a href="/week6" class="chapter">基礎概念</a>
+      <a href="/week6_why_invest" class="chapter">ETF 導覽</a>
+      <a href="/week6_strategy" class="chapter active">新手上路</a>
+    </div>
+  </div>
+
+  <!-- 標題區 -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold animate__animated animate__fadeInDown">新手上路：ETF 怎麼買才對？</h1>
+    <p class="text-muted fs-5 animate__animated animate__fadeIn">建立穩健的 ETF 投資組合</p>
+  </div>
+
+  <!-- ETF 投資方式詳解 -->
+  <section class="investment-methods-section mb-5">
+    <div class="intro-text article-section">
+      <div class="intro-quote mb-5">
+        <div class="quote-content">
+          <p>對許多剛接觸投資的高中生來說，理解了 ETF 的概念與分類後，下一個問題自然是：「那我到底要怎麼買？」這個問題看似簡單，卻包含了許多細節。ETF 的投資方式並不像逛超市一樣，想拿什麼就能放進購物車，而是更接近於你在便利商店買零食時，不僅要知道商品的名稱，還要了解價格、折扣、保存期限，甚至是是否適合自己。</p>
+          <div class="quote-decoration"></div>
+        </div>
+      </div>
+
+      <h3 class="section-title mb-4">ETF 買賣基礎</h3>
+      <p>ETF 的買賣方式，最核心的概念是「像股票一樣交易」。與共同基金不同，ETF 並不需要透過基金公司申購贖回，而是可以直接在證券交易所透過券商買賣。這意味著投資人只要開立一個證券戶，就能像買賣台積電股票一樣，直接買進或賣出 ETF。舉例來說，如果你想要投資追蹤台灣加權指數的 ETF，只需要在證券 App 裡輸入代號，確認價格後下單即可。從這個角度來看，ETF 的入門門檻其實不高，甚至比想像中還要親民。</p>
+
+      <h3 class="section-title mb-4">理解價格機制</h3>
+      <p>然而，ETF 的交易並不只是單純的「買」和「賣」。<strong>它的價格並不是隨意決定的，而是受到「市場供需」與「標的資產淨值」的共同影響。</strong>ETF 可能會出現「溢價」或「折價」的情況。<strong>溢價意味著投資人買 ETF 的價格比它實際價值高，折價則相反。</strong>這就像你去夜市買飲料，雖然原本市價應該是 30 元，但因為攤販生意特別好，老闆喊價到 35 元，你還是得決定要不要接受。懂得觀察 ETF 的折溢價，能幫助投資人避免買貴或賣便宜。</p>
+
+      <h3 class="section-title mb-4">投資費用解析</h3>
+      <p>除了交易價格之外，ETF 還涉及各種費用。最基本的是「交易手續費」，這和買賣股票相同，每次交易都需要支付一定比例給券商。<strong>另一個重要費用是「管理費」或「總費用率（Expense Ratio）」。這筆費用由基金公司收取，用於維護 ETF 的運作。</strong>雖然管理費看似不高，通常在 0.1% 到 1% 之間，但長期累積下來會對投資報酬造成顯著影響。就像存錢罐裡每天被悄悄拿走幾個銅板，一年下來你會發現少了一大把零錢。</p>
+
+      <!-- 費用比較表格 -->
+      <div class="fee-comparison-table my-4">
+        <h4 class="text-center mb-3">ETF 費用類型</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>費用類型</th>
+                <th>費率範圍</th>
+                <th>收取方式</th>
+                <th>影響程度</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>交易手續費</td>
+                <td>0.1425%</td>
+                <td>每次買賣</td>
+                <td>短期影響</td>
+              </tr>
+              <tr>
+                <td>管理費</td>
+                <td>0.1% - 1%</td>
+                <td>每年扣除</td>
+                <td>長期累積</td>
+              </tr>
+              <tr>
+                <td>保管費</td>
+                <td>已含在管理費</td>
+                <td>年度扣除</td>
+                <td>間接影響</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 class="section-title mb-4">投資策略選擇</h3>
+      <p>在實際操作中，ETF 的投資方式也包含了策略性的思考。有些人喜歡「一次投入」，也就是在有資金時直接買進，期待長期持有；有些人則傾向「定期定額」，每月投入固定金額，不管市場高低，都持續累積。定期定額的好處是可以平滑風險，就像每週都去超市買牛奶，不管價格漲跌，長期平均下來你不會因一次高價買入而受傷。<strong>對於高中生或初學者來說，定期定額更容易培養紀律與長期觀念，比追逐市場漲跌更實際。</strong></p>
+
+      <!-- 實用投資策略卡片區塊（從原位置移到這裡） -->
+      <div class="strategy-section-embedded my-5">
+        <h4 class="text-center mb-4" style="color: #1a73e8; font-weight: 600;">實用投資策略</h4>
+        
+        <div class="strategy-grid-2x2">
+          <div class="strategy-card">
+            <div class="strategy-number">1</div>
+            <div class="strategy-icon">🎯</div>
+            <h4>確定投資目標</h4>
+            <ul>
+              <li><strong>追求穩定收益</strong><br>高股息 ETF</li>
+              <li><strong>追求資本增值</strong><br>成長型 ETF</li>
+              <li><strong>風險分散</strong><br>大盤指數 ETF</li>
+            </ul>
+          </div>
+          
+          <div class="strategy-card">
+            <div class="strategy-number">2</div>
+            <div class="strategy-icon">⏰</div>
+            <h4>評估投資期限</h4>
+            <ul>
+              <li><strong>短期（1年內）</strong><br>貨幣市場 ETF</li>
+              <li><strong>中期（1-5年）</strong><br>債券 ETF</li>
+              <li><strong>長期（5年以上）</strong><br>股票 ETF</li>
+            </ul>
+          </div>
+
+          <div class="strategy-card">
+            <div class="strategy-number">3</div>
+            <div class="strategy-icon">🔍</div>
+            <h4>選擇適合的 ETF</h4>
+            <ul>
+              <li><strong>觀察規模</strong><br>建議10億以上</li>
+              <li><strong>評估流動性</strong><br>日均交易量</li>
+              <li><strong>檢視費用率</strong><br>建議低於0.5%</li>
+            </ul>
+          </div>
+
+          <div class="strategy-card">
+            <div class="strategy-number">4</div>
+            <div class="strategy-icon">💰</div>
+            <h4>投資方式</h4>
+            <ul>
+              <li><strong>定期定額</strong><br>分散投資時點</li>
+              <li><strong>單筆投資</strong><br>把握市場時機</li>
+              <li><strong>混合策略</strong><br>兼顧兩者優點</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 新增過渡段落 -->
+      <p class="mt-4">然而，了解策略只是開始，實際執行時還需要留意許多潛在的陷阱與風險。</p>
+
+      <h3 class="section-title mb-4">投資注意事項</h3>
+      <p>投資並不是單向樂觀的道路，也存在需要注意的陷阱。例如，有些 ETF 雖然名稱聽起來熟悉，但追蹤的標的可能與你想像不同。有些標榜「高股息」的 ETF，看似能提供穩定配息，但實際上可能因為成分股表現不佳而拖累長期報酬。另外，有些主題型 ETF，例如人工智慧或電動車題材，看起來新穎又吸引人，但往往波動劇烈，對新手來說並不友善。</p>
+
+      <p>另一個值得一提的重點是「流動性」。<strong>流動性指的是能不能輕鬆買賣而不會影響價格。</strong>如果一檔 ETF 的成交量很低，可能會出現買不到或賣不掉的情況。這就像二手書市集，如果某本冷門參考書幾乎沒人想買，你可能只能忍痛降價才能賣掉。相對來說，熱門的 ETF 就像暢銷小說，隨時都有買家願意接手。</p>
+
+      <p>總結來說，ETF 的投資方式包含了幾個關鍵環節：像股票一樣透過券商買賣、理解折溢價現象、注意交易手續費與管理費、培養定期定額的習慣、挑選流動性高的產品，以及避免過度追逐主題型或高風險的 ETF。對於剛接觸的學生或新手而言，最重要的是先建立「紀律」與「成本意識」。</p>
+    </div>
+  </section>
+
+  <!-- 實用建議 -->
+  <section class="tips-section mb-5">
+    <h3 class="text-center mb-4">新手投資建議</h3>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🎯</div>
+        <h5>從 0050 開始</h5>
+        <p>追蹤台灣50指數，涵蓋大型績優股</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">⏰</div>
+        <h5>定期定額投資</h5>
+        <p>降低進場時點風險，培養投資習慣</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📊</div>
+        <h5>觀察3-6個月</h5>
+        <p>了解ETF波動特性再加碼</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔄</div>
+        <h5>定期檢視調整</h5>
+        <p>配合市場變化適時調整部位</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 測驗按鈕 -->
+  <div class="next-page-section text-center py-5 my-5">
+    <div class="next-page-banner p-4 rounded-lg">
+      <h3 class="mb-3">完成學習了嗎？</h3>
+      <p class="lead mb-4">測試一下你對 ETF 投資的理解程度</p>
+      <a href="/quiz" class="btn btn-primary btn-lg">
+        開始測驗
+        <i class="fas fa-chevron-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- 返回按鈕 -->
+  <div class="text-center mt-5">
+    <a href="/week6_why_invest" class="btn btn-secondary me-3">返回上一頁</a>
+    <a href="/map" class="btn btn-secondary">返回學習地圖</a>
+  </div>
+
+  <!-- ETF 小助手 -->
+  <div class="ai-assistant">
+    <button class="ai-toggle-btn" onclick="toggleAIChat()">
+      <span class="ai-icon">🤖</span>
+      <span class="ai-label">ETF 小助手</span>
+    </button>
+    
+    <div class="ai-chat-container" id="aiChat">
+      <div class="ai-chat-header">
+        <h5 class="mb-0">ETF 小助手</h5>
+        <button class="close-btn" onclick="toggleAIChat()">×</button>
+      </div>
+      <div class="ai-chat-messages" id="aiMessages">
+        <div class="ai-message">
+          <span class="ai-icon">🤖</span>
+          <div class="message-content">
+            你好！我是 ETF 投資小助手。請選擇您想了解的問題：
+          </div>
+        </div>
+        <div class="question-buttons">
+          <button class="preset-question" onclick="askPresetQuestion('什麼是 ETF？為什麼要投資 ETF？')">
+            什麼是 ETF？為什麼要投資 ETF？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('ETF 和股票基金有什麼不同？')">
+            ETF 和股票基金有什麼不同？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('如何選擇適合自己的 ETF？')">
+            如何選擇適合自己的 ETF？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('ETF 投資有哪些風險？')">
+            ETF 投資有哪些風險？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('0050 和 0056 有什麼差別？')">
+            0050 和 0056 有什麼差別？
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ETF 小助手樣式 */
+.ai-assistant {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}
+
+.ai-toggle-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(26,115,232,0.2);
+  transition: all 0.3s ease;
+}
+
+.ai-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26,115,232,0.3);
+}
+
+.ai-chat-container {
+  position: fixed;
+  left: 20px;
+  bottom: 80px;
+  width: 320px;
+  height: 450px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: none;
+  flex-direction: column;
+}
+
+.ai-chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.ai-message {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.message-content {
+  background: #f0f7ff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 85%;
+  white-space: pre-line;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.message-content ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.message-content li {
+  margin-bottom: 6px;
+}
+
+.message-content strong {
+  color: #1a73e8;
+}
+
+.ai-message .message-content {
+  margin-right: auto;
+}
+
+.question-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.preset-question {
+  background: #f8f9fa;
+  color: #1a73e8;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.preset-question:hover {
+  background: #f0f7ff;
+  border-color: #1a73e8;
+  transform: translateX(5px);
+}
+/* 進度指示器樣式 */
+.chapter-progress {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.chapters {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.chapter {
+  font-size: 1.2rem;
+  color: #666;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.chapter:hover {
+  background: #e3f2fd;
+  color: #1a73e8;
+}
+
+.chapter.active {
+  background: #1a73e8;
+  color: white;
+  font-weight: 500;
+}
+
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.strategy-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.strategy-card {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 32px 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  border: 2px solid #e3f2fd;
+}
+
+.strategy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(26,115,232,0.15);
+  border-color: #1a73e8;
+}
+
+.strategy-number {
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(26,115,232,0.3);
+}
+
+.strategy-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.strategy-card h4 {
+  color: #1a73e8;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.strategy-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.strategy-card li {
+  margin-bottom: 14px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #1a73e8;
+  transition: background 0.2s ease;
+}
+
+.strategy-card li:hover {
+  background: #e3f2fd;
+}
+
+.strategy-card li strong {
+  display: block;
+  color: #1a73e8;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.strategy-card li br {
+  display: block;
+  content: "";
+  margin-top: 4px;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tip-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+}
+
+.tip-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.tip-card h5 {
+  color: #1a73e8;
+  margin-bottom: 8px;
+}
+
+.tip-card p {
+  color: #666;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.quiz-banner {
+  background: #f8f9fa;
+  border-radius: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.quiz-banner h3 {
+  color: #1a73e8;
+}
+
+.quiz-banner .btn-primary {
+  background-color: #1a73e8;
+  border-color: #1a73e8;
+  padding: 12px 30px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.quiz-banner .btn-primary:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(26,115,232,0.2);
+}
+
+.progress-indicator {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.progress-dot {
+  width: 16px;
+  height: 16px;
+  background: #ddd;
+  border-radius: 50%;
+}
+
+.progress-dot.active {
+  background: #1a73e8;
+}
+
+.progress-line {
+  width: 100px;
+  height: 2px;
+  background: #ddd;
+  margin: 0 10px;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.progress-labels span {
+  flex: 1;
+  padding: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.progress-labels span.active {
+  color: #1a73e8;
+  font-weight: 500;
+}
+
+/* 新增的樣式 */
+.investment-methods-section {
+  background: #f8f9fa;
+  padding: 40px 20px;
+  border-radius: 16px;
+  margin: 40px auto;
+  max-width: 1000px;
+}
+
+.section-title {
+  color: #1a73e8;
+  font-weight: 600;
+  margin-top: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+.intro-quote {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+
+.quote-content {
+  position: relative;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #445;
+  font-style: italic;
+  text-align: justify;
+}
+
+.quote-content p {
+  margin: 0;
+  padding: 0;
+}
+
+.quote-decoration {
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  width: 40px;
+  height: 40px;
+  background: #1a73e8;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.quote-decoration::before {
+  content: '"';
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  font-size: 40px;
+  color: #1a73e8;
+  font-family: Georgia, serif;
+}
+
+.article-section p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #444;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.fee-comparison-table {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.fee-comparison-table h4 {
+  color: #1a73e8;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  color: #1a73e8;
+  font-weight: 600;
+  border: none;
+}
+
+.table td {
+  border-color: #f0f0f0;
+  padding: 12px;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: #fafafa;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .investment-methods-section {
+    padding: 20px 15px;
+    margin: 20px 10px;
+  }
+  
+  .intro-quote {
+    padding: 20px;
+    margin: 20px 0;
+  }
+  
+  .quote-content {
+    font-size: 1rem;
+  }
+  
+  .article-section p {
+    font-size: 1rem;
+  }
+  
+  .risk-seesaw-section {
+    padding: 20px 15px;
+    margin: 20px 10px;
+  }
+  
+  .seesaw {
+    width: 300px;
+    height: 150px;
+  }
+  
+  .seesaw-board {
+    width: 280px;
+    height: 16px;
+  }
+  
+  .seesaw-left, .seesaw-right {
+    width: 100px;
+    height: 70px;
+    top: -50px;
+  }
+  
+  .risk-label {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .seesaw-controls {
+    gap: 10px;
+  }
+  
+  .scenario-btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 統一樣式調整 */
+.next-page-section {
+  margin: 50px auto;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.next-page-banner {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 1px solid #e3f2fd;
+}
+
+.next-page-banner h3 {
+  color: #1a73e8;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.next-page-banner .lead {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.next-page-banner .btn-primary {
+  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  border: none;
+  padding: 14px 35px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+}
+
+.next-page-banner .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+}
+
+/* 返回按鈕統一樣式 */
+.text-center .btn-secondary {
+  background: #6c757d;
+  border-color: #6c757d;
+  padding: 10px 25px;
+  font-weight: 500;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.text-center .btn-secondary:hover {
+  background: #545b62;
+  border-color: #545b62;
+  transform: translateY(-1px);
+}
+
+/* ETF 小助手統一位置 */
+.ai-assistant {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}
+
+/* 響應式設計統一 */
+@media (max-width: 768px) {
+  .next-page-section {
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+  
+  .next-page-banner {
+    padding: 25px 20px;
+  }
+  
+  .next-page-banner h3 {
+    font-size: 1.3rem;
+  }
+  
+  .next-page-banner .lead {
+    font-size: 1rem;
+  }
+  
+  .next-page-banner .btn-primary {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+  
+  .text-center .btn-secondary {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    margin: 5px;
+  }
+}
+</style>
+
+<script>
+function toggleAIChat() {
+  const chat = document.getElementById('aiChat');
+  chat.style.display = chat.style.display === 'none' || !chat.style.display ? 'flex' : 'none';
+}
+
+function askPresetQuestion(question) {
+  addMessage(question, 'user');
+  
+  const answers = {
+    '什麼是 ETF？為什麼要投資 ETF？': `ETF（交易所交易基金）是一種在證券交易所上市的基金，它結合了股票的交易便利性和基金的分散投資優勢。
+
+投資 ETF 的主要優點：
+
+• 分散風險
+  - 一次投資多家公司
+  - 降低單一股票風險
+
+• 交易方便
+  - 像股票一樣即時買賣
+  - 交易門檻低
+
+• 成本低
+  - 管理費用較低
+  - 手續費較便宜
+
+• 透明度高
+  - 投資標的清楚
+  - 價格即時更新
+
+特別適合新手投資人，因為不需要選股，就能參與整體市場表現。`,
+    
+    'ETF 和股票基金有什麼不同？': `ETF 和股票基金雖然都是基金，但有以下主要差異：
+
+• 交易方式
+  - ETF：像股票一樣可以即時在交易所買賣
+  - 基金：要等到收盤後才能申購或贖回
+
+• 價格透明度
+  - ETF：價格即時更新，交易更靈活
+  - 基金：要等到隔天才知道淨值
+
+• 投資成本
+  - ETF：通常管理費較低（約 0.3~1%）
+  - 基金：管理費較高（約 1.5~2%）
+
+• 投資門檻
+  - ETF：以股為單位，入場門檻較低
+  - 基金：常有最低申購金額限制`,
+    
+    '如何選擇適合自己的 ETF？': '選擇適合的 ETF，建議依照以下步驟：\n\n1. 確定投資目標\n- 追求穩定收益：選擇高股息 ETF\n- 追求資本增值：選擇成長性 ETF\n- 風險分散：選擇追蹤大盤的 ETF\n\n2. 評估重要指標\n- 規模：規模越大越穩定，建議選擇資產規模 10 億以上\n- 流動性：日均成交量越大越好\n- 費用率：越低越好，建議選擇 0.5% 以下\n- 追蹤誤差：越小越好\n\n3. 新手建議\n- 可以從 0050（台灣 50）開始\n- 配合定期定額降低風險\n- 觀察 3-6 個月再加碼',
+    
+    'ETF 投資有哪些風險？': 'ETF 投資雖然相對安全，但仍存在以下風險：\n\n1. 市場風險\n- 跟隨大盤起落\n- 經濟衰退時可能面臨虧損\n\n2. 追蹤誤差風險\n- 可能與指數表現有落差\n- 需要定期檢視追蹤效果\n\n3. 流動性風險\n- 部分 ETF 成交量較小\n- 可能影響買賣價格\n\n4. 匯率風險（海外 ETF）\n- 匯率波動可能影響報酬\n- 建議考慮避險級別 ETF\n\n風險控制建議：\n- 分散投資不同類型 ETF\n- 採用定期定額策略\n- 設定停損點\n- 定期檢視投資組合',
+    
+    '0050 和 0056 有什麼差別？': '0050 和 0056 是台灣最受歡迎的兩檔 ETF，各有特色：\n\n1. 0050（元大台灣 50）\n- 追蹤：台灣 50 指數\n- 成分：台股市值前 50 大企業\n- 特色：反映台股整體表現\n- 適合：想參與台股整體成長的投資人\n\n2. 0056（元大高股息）\n- 追蹤：台灣高股息指數\n- 成分：殖利率高的優質企業\n- 特色：每季配發股利\n- 適合：想要穩定現金流的投資人\n\n選擇建議：\n- 新手建議先從 0050 開始\n- 想要定期收入可以選 0056\n- 兩者可以互補，都納入投資組合'
+  };
+
+  const answer = answers[question] || '抱歉，我現在無法回答這個問題。';
+  addMessage(answer, 'ai');
+}
+
+function addMessage(text, type) {
+  const messages = document.getElementById('aiMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'ai-message';
+  
+  if (type === 'ai') {
+    messageDiv.innerHTML = `
+      <span class="ai-icon">🤖</span>
+      <div class="message-content"></div>
+    `;
+    messages.appendChild(messageDiv);
+    
+    const contentDiv = messageDiv.querySelector('.message-content');
+    let lines = text.split('\n');
+    let currentIndex = 0;
+
+    function showNextLine() {
+      if (currentIndex < lines.length) {
+        const line = lines[currentIndex].trim();
+        if (line) {
+          const p = document.createElement('div');
+          p.className = 'typing-animation';
+          p.textContent = line;
+          contentDiv.appendChild(p);
+        }
+        const delay = line ? 150 : 50;
+        setTimeout(() => {
+          currentIndex++;
+          showNextLine();
+        }, delay);
+      }
+    }
+
+    showNextLine();
+  } else {
+    messageDiv.innerHTML = `
+      <div class="message-content" style="margin-left: auto; background: #e3f2fd;">${text}</div>
+    `;
+    messages.appendChild(messageDiv);
+  }
+  
+  messages.scrollTop = messages.scrollHeight;
+}
+</script>
+{% endblock %}

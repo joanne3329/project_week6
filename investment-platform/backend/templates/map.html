@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}學習地圖{% endblock %}
+
+{% block content %}
+  <h2>🦖 九週財金學習之旅</h2>
+  <p>循序漸進，一週一關，完成九週的財金挑戰！</p>
+
+  <div class="map-path">
+    {% for i in range(1,10) %}
+      <div class="egg-step step-{{ i }}" onclick="window.location.href='{{ url_for('topic', topic_id=i) }}'">
+        <img src="{{ url_for('static', filename='images/egg' ~ i ~ '.png') }}" alt="蛋{{ i }}">
+        <div class="label">第{{ i }}週</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="{{ url_for('home') }}" class="btn">返回主頁面</a>
+
+  <style>
+    .map-path {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 每列固定3格 */
+      gap: 60px 80px; /* 上下60px 左右80px */
+      max-width: 900px;
+      margin: 40px auto;
+      justify-items: center;
+    }
+
+    .egg-step {
+      width: 120px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .egg-step img {
+      width: 100%;
+      height: auto;
+    }
+
+    .egg-step:hover {
+      transform: scale(1.1);
+    }
+
+    .label {
+      margin-top: 8px;
+      font-weight: bold;
+      color: #1E3A8A;
+    }
+  </style>
+{% endblock %}

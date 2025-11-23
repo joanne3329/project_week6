@@ -1,0 +1,1953 @@
+   {% extends "base.html" %}
+
+{% block content %}
+<!-- 載入 Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container mt-5">
+  <!-- 章節進度指示 -->
+  <div class="chapter-progress text-center mb-4">
+    <div class="chapters">
+      <a href="/week6" class="chapter active">基礎概念</a>
+      <a href="/week6_why_invest" class="chapter">ETF 導覽</a>
+      <a href="/week6_strategy" class="chapter">新手上路</a>
+    </div>
+  </div>
+
+  <!-- 標題區 -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold animate__animated animate__fadeInDown">基礎概念：ETF 到底是什麼？</h1>
+    <p class="text-muted fs-5 animate__animated animate__fadeIn"> ETF 是什麼 ? ETF 的誕生與概念</p>
+  </div>
+
+  <!-- ETF 源起說明區塊 -->
+  <div class="intro-text article-section mb-5">
+    <div class="intro-quote mb-5">
+      <div class="quote-content">
+        <p>在日常生活中，我們常常會聽到「投資」這個詞，可能來自家人之間的聊天，或者在新聞裡看到股市的漲跌，甚至是在 YouTube 或社群平台上看到網紅分享投資心得。對高中生而言，投資的世界似乎既熟悉又遙遠，因為一方面我們早已知道大人們常常談論「股市」、「基金」，但另一方面，這些名詞背後的機制卻顯得神祕而複雜。要打開投資的第一扇門，我們必須先從一個近年最受大眾歡迎的工具談起，那就是 ETF。</p>
+        <div class="quote-decoration"></div>
+      </div>
+    </div>
+    <div class="article-text">
+
+      <p class="mt-4"><strong>ETF，全名是「Exchange Traded Fund」，中文翻譯為「指數股票型基金」，是一種結合了「基金」與「股票」特性的投資工具。</strong>它既像基金一樣，能幫投資人分散風險，因為一檔 ETF 裡往往包含許多不同的股票或債券；它又像股票一樣，可以在證券交易所自由買賣，價格隨時變動。這種「既是基金又像股票」的特性，使得 ETF 成為新手投資人踏入市場的良好選擇。</p>
+
+      <p class="mt-4"><strong>這種「既是基金又像股票」的混血特性，你真的理解了嗎？讓我們馬上進入基因實驗室，親手「合成」一檔 ETF 吧！</strong></p>
+
+      <!-- 互動小遊戲：ETF 混血兒基因配對實驗室 -->
+      <div class="gene-lab-section mt-5 mb-5">
+        <h3 class="game-title text-center mb-4">🔬 互動小遊戲：【ETF 混血兒：基因配對實驗室】 🔬</h3>
+        
+        <div class="experiment-goal mb-4">
+          <h4>🧬 實驗目標：合成 ETF</h4>
+          <p>請將下方的「特性標籤」拖曳到正確的「基因」類別中，來解鎖 ETF 的誕生！</p>
+        </div>
+        
+        <!-- 上半部：DNA 放置區 -->
+        <div class="dna-zones-container">
+          <div class="dna-zone stock-dna" id="stockDnaZone" ondrop="dropTag(event)" ondragover="allowDrop(event)">
+            <h4>🔵 股票 DNA</h4>
+            <p class="zone-hint">(請拖曳「股票特性」到此處)</p>
+            <div class="dropped-tags" id="stockDroppedTags">
+              <!-- 拖曳的標籤將出現在這裡 -->
+            </div>
+          </div>
+          
+          <div class="dna-zone fund-dna" id="fundDnaZone" ondrop="dropTag(event)" ondragover="allowDrop(event)">
+            <h4>🟢 基金 DNA</h4>
+            <p class="zone-hint">(請拖曳「基金特性」到此處)</p>
+            <div class="dropped-tags" id="fundDroppedTags">
+              <!-- 拖曳的標籤將出現在這裡 -->
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 下半部：標籤池 -->
+        <div class="tag-pool-section">
+          <h4>🏷️ 特性標籤池 (請拖曳我)</h4>
+          <div class="tag-pool" id="tagPool">
+            <div class="trait-tag" draggable="true" ondragstart="dragStart(event)" id="tag1" data-trait="trading" data-correct="stock">
+              🏷️ 可在交易所隨時買賣
+            </div>
+            <div class="trait-tag" draggable="true" ondragstart="dragStart(event)" id="tag2" data-trait="basket" data-correct="fund">
+              🏷️ 由一籃子資產組成
+            </div>
+            <div class="trait-tag" draggable="true" ondragstart="dragStart(event)" id="tag3" data-trait="price" data-correct="stock">
+              🏷️ 價格隨時變動
+            </div>
+            <div class="trait-tag" draggable="true" ondragstart="dragStart(event)" id="tag4" data-trait="diversify" data-correct="fund">
+              🏷️ 具備分散風險的效果
+            </div>
+          </div>
+        </div>
+
+        <!-- 合成按鈕區 -->
+        <div class="synthesis-section text-center mt-4" style="display: none;" id="synthesisSection">
+          <button class="synthesis-btn" onclick="synthesizeETF()" id="synthesisBtn">
+            🧬 合成 ETF！
+          </button>
+        </div>
+
+        <!-- 合成結果區 -->
+        <div class="synthesis-result" id="synthesisResult" style="display: none;">
+          <hr class="my-4">
+          <h4 class="text-center">🎉 合成成功！</h4>
+          <div class="result-content text-center">
+            <p>你成功結合了「股票」和「基金」的關鍵基因，創造出了...</p>
+            <div class="spy-result my-4">
+              <div class="spy-logo">
+                <span class="spy-text">SPY</span>
+                <span class="spy-subtitle">SPDR S&P 500 ETF</span>
+              </div>
+              <div class="spy-family-meme">
+                <span class="anya-face">🤫</span>
+                <span class="waku-text">Waku Waku!</span>
+              </div>
+            </div>
+            <p>...全世界第一檔成功的 ETF：<strong>SPY</strong>！ (所以... SPY... FAMILY？ 🤫)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 基因實驗總結彈窗 -->
+      <div class="gene-popup" id="genePopup" style="display: none;">
+        <div class="popup-content">
+          <h4 class="popup-title">💡 實驗結論：ETF 的混血特性</h4>
+          <div class="popup-text">
+            <p><strong>實驗成功！你記住了嗎？</strong></p>
+            <p><strong>ETF 繼承了【股票】的基因：</strong> 讓我們可以像買賣股票一樣「方便交易」、「價格即時」。</p>
+            <p><strong>ETF 繼承了【基金】的基因：</strong> 讓我們可以一次買到一籃子資產，「分散風險」。</p>
+            <p><strong>ETF = 交易的方便性 + 風險的分散性！</strong></p>
+          </div>
+          <button class="popup-close-btn" onclick="closeGenePopup()">了解！繼續探索歷史</button>
+        </div>
+      </div>
+
+      <p class="mt-4">ETF 的誕生並不是偶然，而是金融市場發展與投資需求演變的結果。在上個世紀，投資基金已經相當流行，許多人會透過基金經理人來幫自己管理資金。然而，傳統基金往往需要支付高額的管理費，且買賣並不像股票一樣方便。1990 年代，美國的金融市場開始探索一種新的投資工具：它必須同時兼具分散風險的特性，又能在交易所方便買賣。1993 年，全球第一檔 ETF——SPDR S&P 500 ETF（代號 SPY）誕生，它追蹤美國 S&P 500 指數，讓投資人能夠用相對低的成本買到整個市場的代表性股票。這項創新迅速受到歡迎，並在短短幾十年間傳遍全球。</p>
+
+      <p class="mt-4">ETF 不僅僅是金融商品，它其實反映了社會中人們對於「簡單、方便、透明」投資方式的需求。對於沒有時間研究單一股票的投資人來說，ETF 提供了一種相對安心的選擇。尤其在現代社會裡，投資已經不再只是少數專業人士的事，而是成為一般大眾實現財務目標的重要手段。ETF 的普及正是這種潮流的最佳寫照。這樣的設計既省時，也能避免『只吃一道菜太單調』或『選錯菜結果不合胃口』的風險。</p>
+
+      <p class="mt-4">說了這麼多，不如我們直接來玩玩看！馬上體驗『單點』和『吃自助餐』的真實差別在哪裡 👇</p>
+
+      <!-- 互動小遊戲：投資自助餐 -->
+      <div class="investment-game-section mt-5 mb-5">
+        <h3 class="game-title text-center mb-4">🎮 互動小遊戲：【投資自助餐：今晚我作主！】 🎮</h3>
+        
+        <div class="game-container">
+          <!-- 左欄：單點餐廳 -->
+          <div class="game-column single-stock">
+            <h4 class="column-title">😱 風險集中：單點餐廳 (買個股)</h4>
+            <p class="column-desc">你只有一次機會，請「三選一」決定你的午餐！</p>
+            
+            <div class="stock-buttons">
+              <button class="stock-btn" onclick="selectStock('tech')" id="tech-btn">
+                🍽️ A 科技牛排
+              </button>
+              <button class="stock-btn" onclick="selectStock('traditional')" id="traditional-btn">
+                🍗 B 傳產雞腿
+              </button>
+              <button class="stock-btn" onclick="selectStock('shipping')" id="shipping-btn">
+                🦞 C 航運龍蝦
+              </button>
+            </div>
+            
+            <div class="result-box" id="single-result" style="display: none;">
+              <!-- 結果將動態插入這裡 -->
+            </div>
+          </div>
+
+          <!-- 右欄：自助餐廳 -->
+          <div class="game-column etf-buffet">
+            <h4 class="column-title">😊 風險分散：自助餐廳 (買 ETF)</h4>
+            <p class="column-desc">你不用選！餐廳幫你配好了一整盤菜！</p>
+            
+            <div class="etf-button">
+              <button class="etf-btn" onclick="selectETF()" id="etf-btn">
+                🍱 拿取 ETF 組合餐盤 (0050)
+              </button>
+            </div>
+            
+            <div class="result-box" id="etf-result" style="display: none;">
+              <!-- 結果將動態插入這裡 -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 遊戲總結彈窗 -->
+      <div class="game-popup" id="gamePopup" style="display: none;">
+        <div class="popup-content">
+          <h4 class="popup-title">💡 遊戲結論：這就是「分散風險」！</h4>
+          <div class="popup-text">
+            <p><strong>你發現了嗎？</strong></p>
+            <p><strong>單點（買個股）：</strong> 風險非常集中！你可能運氣好大賺 (+50%)，但也可能運氣差大賠 (-40%)，心臟要很大顆。</p>
+            <p><strong>自助餐（買 ETF）：</strong> 幫你自動組合了多種菜色。就算有一兩道菜不好吃 (-10%)，其他的也會補回來 (+15%)。</p>
+            <p><strong>ETF 讓你的整體表現更穩健，不容易血本無歸！</strong></p>
+          </div>
+          <button class="popup-close-btn" onclick="closeGamePopup()">我懂了！繼續學習</button>
+        </div>
+      </div>
+
+      <p class="mt-4">ETF 不僅僅是金融商品，它其實反映了社會中人們對於「簡單、方便、透明」投資方式的需求。對於沒有時間研究單一股票的投資人來說，ETF 提供了一種相對安心的選擇。尤其在現代社會裡，投資已經不再只是少數專業人士的事，而是成為一般大眾實現財務目標的重要手段。ETF 的普及正是這種潮流的最佳寫照。</p>
+      <p class="mt-4">在台灣，ETF 的熱潮大約從 2017 年後快速升溫，尤其是股票型 ETF，如「0050 元大台灣50」和「0056 元大高股息」，成為許多小資族和新手投資人的首選。原因在於這些 ETF 不僅標的清楚（前者追蹤台灣前 50 大市值公司，後者專注於高股息公司），而且買賣方式和股票一樣簡單，只要有證券帳戶，幾乎人人都能參與。許多證券公司也會透過廣告、教學文章或線上課程來推廣 ETF，因為它比起個股投資更容易理解，也更符合大眾投資教育的需求。</p>
+      <p class="mt-4">當然，ETF 的世界並不只有股票型，還包括債券型、商品型、甚至是主題型。例如，債券型 ETF 就像是把許多不同的政府債券或公司債打包在一起，讓投資人不需要逐一挑選債券，就能一次買到一籃子的債券資產。至於商品型 ETF，則可能追蹤黃金、石油等大宗商品的價格。主題型 ETF 則更貼近日常生活，例如「電動車 ETF」、「AI 人工智慧 ETF」等，讓投資人可以針對自己看好的產業進行投資。不過，在這個課程裡，我們會專注在股票型和債券型兩大主流，因為它們對於新手而言最基礎、最容易理解，也最能幫助打下穩固的投資基礎。</p>
+      <p class="mt-4">有趣的是，ETF 的投資理念其實和高中生的生活並不遙遠。想像一下，在考試的時候，如果你把全部心力都放在一科，例如數學，雖然有可能得到高分，but如果數學出現難題，你就會陷入危機；相反，如果你平均分配時間給數學、英文、社會等多科，雖然單科成績可能不會衝得特別高，但整體表現會比較穩定。ETF 就像這樣的學習策略，它幫助投資人不要把雞蛋放在同一個籃子裡，而是分散在多個科目（或股票、債券）上，讓你的投資成績不會因為單一科目失利而全盤皆輸。</p>
+
+      <p class="mt-4">是不是聽起來很有道理？別只是想像，我們直接來模擬一次期末考，看看你會選哪種策略！</p>
+
+      <!-- 互動小遊戲：學霸的投資策略 -->
+      <div class="study-strategy-game-section mt-5 mb-5">
+        <h3 class="game-title text-center mb-4">👩‍🎓 互動小遊戲：【學霸的投資策略：期末 All Pass 術】 👨‍🎓</h3>
+        
+        <div class="scenario-setting mb-4">
+          <h4>🚨 情境：期末考前夕</h4>
+          <p>你現在有 <strong>100 點「讀書精力值」</strong>，考試科目有五科：【數學】、【英文】、【物理】、【社會】、【國文】。</p>
+          <p><strong>請選擇你的讀書策略（二選一）！</strong></p>
+        </div>
+        
+        <div class="study-game-container">
+          <!-- 左欄：策略 A -->
+          <div class="strategy-column strategy-a">
+            <h4 class="strategy-title">策略 A：重壓單科 (All-in 個股)</h4>
+            <p class="strategy-desc">「我要拼了！把 100 點精力值全部投入【數學】！賭一把！」</p>
+            
+            <div class="strategy-button">
+              <button class="strategy-btn all-in-btn" onclick="selectStudyStrategy('all-in')" id="all-in-btn">
+                🚀 選擇策略 A：數學是我的全部！
+              </button>
+            </div>
+          </div>
+
+          <!-- 右欄：策略 B -->
+          <div class="strategy-column strategy-b">
+            <h4 class="strategy-title">策略 B：平均分配 (佈局 ETF)</h4>
+            <p class="strategy-desc">「穩健 All Pass 才重要！五科各投入 20 點精力值。」</p>
+            
+            <div class="strategy-button">
+              <button class="strategy-btn balanced-btn" onclick="selectStudyStrategy('balanced')" id="balanced-btn">
+                🛡️ 選擇策略 B：我要穩穩的幸福！
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 結果反饋區 -->
+        <div class="study-result-section" id="studyResult" style="display: none;">
+          <hr class="my-4">
+          <h4 class="result-title text-center">📜 期末考放榜！</h4>
+          <div class="result-content" id="studyResultContent">
+            <!-- 結果將動態插入這裡 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 學習策略總結彈窗 -->
+      <div class="study-popup" id="studyPopup" style="display: none;">
+        <div class="popup-content">
+          <h4 class="popup-title">💡 遊戲結論：投資就是讀書策略！</h4>
+          <div class="popup-text">
+            <p><strong>這就是 ETF 的精神！</strong></p>
+            <p><strong>策略 A (重壓個股)：</strong> 就像 All-in 單科，你可能成為榜首 (大賺)，但也可能因為一次失利 (大賠) 就全盤皆輸。</p>
+            <p><strong>策略 B (佈局 ETF)：</strong> 就像平均分配時間，就算數學考差了 (60分)，你的英文 (85分) 和國文 (90分) 會把整體成績救回來。</p>
+            <p><strong>ETF 犧牲了最高的爆發力，換取了「不容易翻車」的穩健表現！</strong></p>
+          </div>
+          <button class="popup-close-btn" onclick="closeStudyPopup()">我學會了！繼續前進</button>
+        </div>
+      </div>
+
+      <p class="mt-4">在了解了 ETF 的誕生背景與基本概念之後，我們可以開始進一步探討股票型 ETF 與債券型 ETF 的特性，看看它們如何在不同的市場情境下發揮作用。這就像是自助餐裡的兩大主菜，一個偏向於高變動、高潛力的風味料理（股票型 ETF），另一個則是穩健、能讓人安心的傳統家常菜（債券型 ETF）。理解這兩者的差異，是我們走進 ETF 世界的關鍵一步。</p>
+    </div>
+  </div>
+
+  <!-- 下一頁按鈕 -->
+  <div class="next-page-section text-center py-5 my-5">
+    <div class="next-page-banner p-4 rounded-lg">
+      <h3 class="mb-3">準備好學習下一個主題了嗎？</h3>
+      <p class="lead mb-4">接下來我們將探討股票型與債券型 ETF 的差異</p>
+      <a href="/week6_why_invest" class="btn btn-primary btn-lg">
+        前往下一章節
+        <i class="fas fa-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- 返回按鈕 -->
+  <div class="text-center mt-5">
+    <a href="/map" class="btn btn-secondary me-3">返回學習地圖</a>
+  </div>
+
+  <!-- ETF 小助手 -->
+  <div class="ai-assistant">
+    <button class="ai-toggle-btn" onclick="toggleAIChat()">
+      <span class="ai-icon">🤖</span>
+      <span class="ai-label">ETF 小助手</span>
+    </button>
+    
+    <div class="ai-chat-container" id="aiChat">
+      <div class="ai-chat-header">
+        <h5 class="mb-0">ETF 小助手</h5>
+        <button class="close-btn" onclick="toggleAIChat()">×</button>
+      </div>
+      <div class="ai-chat-messages" id="aiMessages">
+        <div class="ai-message">
+          <span class="ai-icon">🤖</span>
+          <div class="message-content">
+            你好！我是 ETF 投資小助手。請選擇您想了解的問題：
+          </div>
+        </div>
+        <div class="question-buttons">
+          <button class="preset-question" onclick="askPresetQuestion('什麼是 ETF？為什麼要投資 ETF？')">
+            什麼是 ETF？為什麼要投資 ETF？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('ETF 和股票基金有什麼不同？')">
+            ETF 和股票基金有什麼不同？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('如何選擇適合自己的 ETF？')">
+            如何選擇適合自己的 ETF？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('ETF 投資有哪些風險？')">
+            ETF 投資有哪些風險？
+          </button>
+          <button class="preset-question" onclick="askPresetQuestion('0050 和 0056 有什麼差別？')">
+            0050 和 0056 有什麼差別？
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ETF 小助手樣式 */
+.ai-assistant {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}
+
+.ai-toggle-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(26,115,232,0.2);
+  transition: all 0.3s ease;
+}
+
+.ai-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26,115,232,0.3);
+}
+
+.ai-chat-container {
+  position: fixed;
+  left: 20px;
+  bottom: 80px;
+  width: 320px;
+  height: 450px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: none;
+  flex-direction: column;
+}
+
+.ai-chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.ai-message {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.message-content {
+  background: #f0f7ff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 85%;
+  white-space: pre-line;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.message-content ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.message-content li {
+  margin-bottom: 6px;
+}
+
+.message-content strong {
+  color: #1a73e8;
+}
+
+.ai-message .message-content {
+  margin-right: auto;
+}
+
+.question-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.preset-question {
+  background: #f8f9fa;
+  color: #1a73e8;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.preset-question:hover {
+  background: #f0f7ff;
+  border-color: #1a73e8;
+  transform: translateX(5px);
+}
+
+/* 動畫效果 */
+@keyframes typing {
+  from { 
+    max-height: 0;
+    opacity: 0;
+  }
+  to { 
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+.typing-animation {
+  display: block;
+  overflow: hidden;
+  white-space: pre-wrap;
+  animation: typing 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+/* 進度指示器樣式 */
+.chapter-progress {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.chapters {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.chapter {
+  font-size: 1.2rem;
+  color: #666;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.chapter:hover {
+  background: #e3f2fd;
+  color: #1a73e8;
+}
+
+.chapter.active {
+  background: #1a73e8;
+  color: white;
+  font-weight: 500;
+}
+
+/* ETF 特性卡片樣式 */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.feature-card h4 {
+  color: #1a73e8;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.feature-detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26,115,232,0.95);
+  color: white;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+
+.feature-card:hover .feature-detail {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 引言區塊樣式 */
+.intro-quote {
+  position: relative;
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+
+.quote-content {
+  position: relative;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #445;
+  font-style: italic;
+  text-align: justify;
+}
+
+.quote-content p {
+  margin: 0;
+  padding: 0;
+}
+
+.quote-decoration {
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  width: 40px;
+  height: 40px;
+  background: #1a73e8;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.quote-decoration::before {
+  content: '"';
+  position: absolute;
+  left: 12px;
+  top: 8px;
+  font-size: 40px;
+  color: #1a73e8;
+  font-family: Georgia, serif;
+}
+
+/* 圖片容器樣式 */
+.chart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.chart-container img {
+  width: 100%;
+  height: auto;
+}
+
+/* 下一頁按鈕樣式 */
+.next-page-banner {
+  background: #f8f9fa;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.next-page-banner h3 {
+  color: #1a73e8;
+}
+
+.next-page-banner .btn-primary {
+  background-color: #1a73e8;
+  border-color: #1a73e8;
+  padding: 12px 30px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.next-page-banner .btn-primary:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(26,115,232,0.2);
+}
+
+/* 解剖 ETF 樣式 */
+.etf-anatomy-section {
+  background: #f8f9fa;
+  padding: 40px 20px;
+  border-radius: 16px;
+  margin: 40px auto;
+  max-width: 1000px;
+}
+
+.anatomy-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.etf-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.etf-box {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  border: 3px solid transparent;
+}
+
+.etf-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border-color: #1a73e8;
+}
+
+.etf-box.active {
+  border-color: #1a73e8;
+  background: #f0f7ff;
+}
+
+.box-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.etf-box h4 {
+  color: #1a73e8;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.etf-box p {
+  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.chart-containers {
+  width: 100%;
+  max-width: 800px;
+}
+
+.chart-container {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.chart-container.show {
+  opacity: 1;
+  transform: translateY(0);
+  display: block;
+}
+
+.chart-title {
+  color: #1a73e8;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.chart-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.chart-description {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.chart-description p {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* 互動遊戲樣式 */
+.investment-game-section {
+  background: #f8f9fa;
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 2px solid #e3f2fd;
+  margin: 40px auto;
+  max-width: 1000px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.game-title {
+  color: #1a73e8;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.game-column {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.column-title {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.column-desc {
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.stock-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stock-btn {
+  background: #fff;
+  border: 2px solid #1a73e8;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #1a73e8;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stock-btn:hover {
+  background: #1a73e8;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.stock-btn:disabled {
+  background: #f5f5f5;
+  border-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.etf-button {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.etf-btn {
+  background: #28a745;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 25px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.etf-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.etf-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.result-box {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  border-left: 4px solid #1a73e8;
+  margin-top: 15px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.result-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result-positive {
+  border-left-color: #28a745;
+  background: #d4edda;
+}
+
+.result-negative {
+  border-left-color: #dc3545;
+  background: #f8d7da;
+}
+
+.result-neutral {
+  border-left-color: #ffc107;
+  background: #fff3cd;
+}
+
+.etf-calculation {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.etf-calculation div {
+  margin-bottom: 5px;
+}
+
+.etf-total {
+  border-top: 2px solid #28a745;
+  padding-top: 10px;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* 彈窗樣式 */
+.game-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+.popup-title {
+  color: #1a73e8;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.popup-text {
+  text-align: left;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.popup-text p {
+  margin-bottom: 15px;
+}
+
+.popup-close-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.popup-close-btn:hover {
+  background: #0d47a1;
+  transform: translateY(-2px);
+}
+
+/* 學習策略遊戲樣式 */
+.study-strategy-game-section {
+  background: #f8f9fa;
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 2px solid #e3f2fd;
+  margin: 40px auto;
+  max-width: 1000px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.scenario-setting {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 4px solid #1a73e8;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.scenario-setting h4 {
+  color: #1a73e8;
+  margin-bottom: 15px;
+}
+
+.scenario-setting p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.study-game-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.strategy-column {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.strategy-title {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.strategy-desc {
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.strategy-button {
+  margin-bottom: 20px;
+}
+
+.strategy-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 15px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.all-in-btn {
+  background: #ff6b35;
+  color: white;
+}
+
+.all-in-btn:hover {
+  background: #e55a30;
+  transform: translateY(-2px);
+}
+
+.balanced-btn {
+  background: #28a745;
+  color: white;
+}
+
+.balanced-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.strategy-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.study-result-section {
+  margin-top: 30px;
+}
+
+.result-title {
+  color: #1a73e8;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.result-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.score-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.score-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 5px 0;
+}
+
+.score-subject {
+  font-weight: 500;
+}
+
+.score-value {
+  font-weight: bold;
+}
+
+.score-high {
+  color: #28a745;
+}
+
+.score-low {
+  color: #dc3545;
+}
+
+.score-medium {
+  color: #ffc107;
+}
+
+.final-result {
+  background: #e3f2fd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  border-left: 4px solid #1a73e8;
+}
+
+.final-result.success {
+  background: #d4edda;
+  border-left-color: #28a745;
+}
+
+.final-result.failure {
+  background: #f8d7da;
+  border-left-color: #dc3545;
+}
+
+.study-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* 基因實驗室樣式 */
+.gene-lab-section {
+  background: #f8f9fa;
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 2px solid #e3f2fd;
+  margin: 40px auto;
+  max-width: 1000px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.experiment-goal {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 4px solid #1a73e8;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.experiment-goal h4 {
+  color: #1a73e8;
+  margin-bottom: 15px;
+}
+
+.experiment-goal p {
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.dna-zones-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.dna-zone {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 3px dashed #ccc;
+  min-height: 150px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dna-zone.drag-over {
+  border-color: #1a73e8;
+  background: #f0f7ff;
+  transform: scale(1.02);
+}
+
+.dna-zone.drag-over-wrong {
+  border-color: #dc3545;
+  background: #ffe6e6;
+  animation: shake 0.5s ease-in-out;
+}
+
+.dna-zone h4 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.zone-hint {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.dropped-tags {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tag-pool-section h4 {
+  color: #1a73e8;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tag-pool {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  justify-items: center;
+}
+
+.trait-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 25px;
+  cursor: grab;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  border: 2px solid transparent;
+  user-select: none;
+}
+
+.trait-tag:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.trait-tag:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+
+.trait-tag.dragging {
+  opacity: 0.7;
+  transform: rotate(5deg);
+}
+
+.trait-tag.dropped {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  position: relative;
+}
+
+.trait-tag.dropped::before {
+  content: "✅";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+.synthesis-section {
+  margin-top: 30px;
+}
+
+.synthesis-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.synthesis-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.synthesis-btn:active {
+  transform: scale(0.95);
+}
+
+.synthesis-result {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.synthesis-result h4 {
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.spy-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.spy-logo {
+  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+}
+
+.spy-text {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.spy-subtitle {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  opacity: 0.9;
+}
+
+.spy-family-meme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.anya-face {
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+}
+
+.waku-text {
+  background: linear-gradient(45deg, #ff6b9d, #c44569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.gene-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* 動畫效果 */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .gene-lab-section {
+    padding: 20px 15px;
+  }
+  
+  .dna-zones-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .tag-pool {
+    grid-template-columns: 1fr;
+  }
+  
+  .spy-result {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .experiment-goal {
+    padding: 20px;
+  }
+}
+
+/* ...existing code... */
+</style>
+
+<script>
+function showFeatureDetail(card, feature) {
+  card.querySelector('.feature-detail').style.opacity = '1';
+  card.querySelector('.feature-detail').style.transform = 'scale(1)';
+}
+
+function hideFeatureDetail(card) {
+  card.querySelector('.feature-detail').style.opacity = '0';
+  card.querySelector('.feature-detail').style.transform = 'scale(0.9)';
+}
+
+function toggleAIChat() {
+  const chat = document.getElementById('aiChat');
+  chat.style.display = chat.style.display === 'none' || !chat.style.display ? 'flex' : 'none';
+}
+
+function askPresetQuestion(question) {
+  addMessage(question, 'user');
+  
+  const answers = {
+    '什麼是 ETF？為什麼要投資 ETF？': `ETF（交易所交易基金）是一種在證券交易所上市的基金，它結合了股票的交易便利性和基金的分散投資優勢。
+
+投資 ETF 的主要優點：
+
+• 分散風險
+  - 一次投資多家公司
+  - 降低單一股票風險
+
+• 交易方便
+  - 像股票一樣即時買賣
+  - 交易門檻低
+
+• 成本低
+  - 管理費用較低
+  - 手續費較便宜
+
+• 透明度高
+  - 投資標的清楚
+  - 價格即時更新
+
+特別適合新手投資人，因為不需要選股，就能參與整體市場表現。`,
+    
+    'ETF 和股票基金有什麼不同？': `ETF 和股票基金雖然都是基金，但有以下主要差異：
+
+• 交易方式
+  - ETF：像股票一樣可以即時在交易所買賣
+  - 基金：要等到收盤後才能申購或贖回
+
+• 價格透明度
+  - ETF：價格即時更新，交易更靈活
+  - 基金：要等到隔天才知道淨值
+
+• 投資成本
+  - ETF：通常管理費較低（約 0.3~1%）
+  - 基金：管理費較高（約 1.5~2%）
+
+• 投資門檻
+  - ETF：以股為單位，入場門檻較低
+  - 基金：常有最低申購金額限制`,
+    
+    '如何選擇適合自己的 ETF？': '選擇適合的 ETF，建議依照以下步驟：\n\n1. 確定投資目標\n- 追求穩定收益：選擇高股息 ETF\n- 追求資本增值：選擇成長性 ETF\n- 風險分散：選擇追蹤大盤的 ETF\n\n2. 評估重要指標\n- 規模：規模越大越穩定，建議選擇資產規模 10 億以上\n- 流動性：日均成交量越大越好\n- 費用率：越低越好，建議選擇 0.5% 以下\n- 追蹤誤差：越小越好\n\n3. 新手建議\n- 可以從 0050（台灣 50）開始\n- 配合定期定額降低風險\n- 觀察 3-6 個月再加碼',
+    
+    'ETF 投資有哪些風險？': 'ETF 投資雖然相對安全，但仍存在以下風險：\n\n1. 市場風險\n- 跟隨大盤起落\n- 經濟衰退時可能面臨虧損\n\n2. 追蹤誤差風險\n- 可能與指數表現有落差\n- 需要定期檢視追蹤效果\n\n3. 流動性風險\n- 部分 ETF 成交量較小\n- 可能影響買賣價格\n\n4. 匯率風險（海外 ETF）\n- 匯率波動可能影響報酬\n- 建議考慮避險級別 ETF\n\n風險控制建議：\n- 分散投資不同類型 ETF\n- 採用定期定額策略\n- 設定停損點\n- 定期檢視投資組合',
+    
+    '0050 和 0056 有什麼差別？': '0050 和 0056 是台灣最受歡迎的兩檔 ETF，各有特色：\n\n1. 0050（元大台灣 50）\n- 追蹤：台灣 50 指數\n- 成分：台股市值前 50 大企業\n- 特色：反映台股整體表現\n- 適合：想參與台股整體成長的投資人\n\n2. 0056（元大高股息）\n- 追蹤：台灣高股息指數\n- 成分：殖利率高的優質企業\n- 特色：每季配發股利\n- 適合：想要穩定現金流的投資人\n\n選擇建議：\n- 新手建議先從 0050 開始\n- 想要定期收入可以選 0056\n- 兩者可以互補，都納入投資組合'
+  };
+
+  const answer = answers[question] || '抱歉，我現在無法回答這個問題。';
+  addMessage(answer, 'ai');
+}
+
+function addMessage(text, type) {
+  const messages = document.getElementById('aiMessages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = 'ai-message';
+  
+  if (type === 'ai') {
+    messageDiv.innerHTML = `
+      <span class="ai-icon">🤖</span>
+      <div class="message-content"></div>
+    `;
+    messages.appendChild(messageDiv);
+    
+    const contentDiv = messageDiv.querySelector('.message-content');
+    let lines = text.split('\n');
+    let currentIndex = 0;
+
+    function showNextLine() {
+      if (currentIndex < lines.length) {
+        const line = lines[currentIndex].trim();
+        if (line) {
+          const p = document.createElement('div');
+          p.className = 'typing-animation';
+          p.textContent = line;
+          contentDiv.appendChild(p);
+        }
+        const delay = line ? 150 : 50;
+        setTimeout(() => {
+          currentIndex++;
+          showNextLine();
+        }, delay);
+      }
+    }
+
+    showNextLine();
+  } else {
+    messageDiv.innerHTML = `
+      <div class="message-content" style="margin-left: auto; background: #e3f2fd;">${text}</div>
+    `;
+    messages.appendChild(messageDiv);
+  }
+  
+  messages.scrollTop = messages.scrollHeight;
+}
+
+// 解剖 ETF 功能
+let stockChart = null;
+let bondChart = null;
+
+// 頁面載入時初始化圖表
+document.addEventListener('DOMContentLoaded', function() {
+  // 初始化股票 ETF 圓餅圖
+  initStockChart();
+  
+  // 初始化債券 ETF 圓餅圖
+  initBondChart();
+});
+
+function initStockChart() {
+  const ctx = document.getElementById('stockChart').getContext('2d');
+  stockChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['台積電', '鴻海', '聯發科', '其他'],
+      datasets: [{
+        data: [48, 8, 5, 39],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC'],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 20,
+            font: {
+              size: 12
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return context.label + ': ' + context.parsed + '%';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function initBondChart() {
+  const ctx = document.getElementById('bondChart').getContext('2d');
+  bondChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['15-20 年到期的借據', '20-25 年到期的借據', '25+ 年到期的借據'],
+      datasets: [{
+        data: [40, 50, 10],
+        backgroundColor: ['#4BC0C0', '#9966FF', '#FF9F40'],
+        borderWidth: 2,
+        borderColor: '#fff'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 20,
+            font: {
+              size: 12
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return context.label + ': ' + context.parsed + '%';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function openETF(type) {
+  const stockContainer = document.getElementById('stock-chart-container');
+  const bondContainer = document.getElementById('bond-chart-container');
+  const stockButton = document.getElementById('btn-stock-etf');
+  const bondButton = document.getElementById('btn-bond-etf');
+  
+  // 移除所有按鈕的 active 狀態
+  stockButton.classList.remove('active');
+  bondButton.classList.remove('active');
+  
+  // 隱藏所有容器
+  stockContainer.classList.remove('show');
+  bondContainer.classList.remove('show');
+  stockContainer.style.display = 'none';
+  bondContainer.style.display = 'none';
+  
+  if (type === 'stock') {
+    // 顯示股票 ETF 圖表
+    stockButton.classList.add('active');
+    setTimeout(() => {
+      stockContainer.style.display = 'block';
+      setTimeout(() => {
+        stockContainer.classList.add('show');
+        // 重新渲染圖表以確保正確顯示
+        if (stockChart) {
+          stockChart.resize();
+        }
+      }, 50);
+    }, 200);
+  } else if (type === 'bond') {
+    // 顯示債券 ETF 圖表
+    bondButton.classList.add('active');
+    setTimeout(() => {
+      bondContainer.style.display = 'block';
+      setTimeout(() => {
+        bondContainer.classList.add('show');
+        // 重新渲染圖表以確保正確顯示
+        if (bondChart) {
+          bondChart.resize();
+        }
+      }, 50);
+    }, 200);
+  }
+}
+
+// 投資遊戲功能
+let gameResults = {
+  tech: [
+    { result: '✅ 天啊！米其林三星等級的美味！', performance: '+50%', type: 'positive' },
+    { result: '❌ 不幸踩雷！食物中毒了...', performance: '-40%', type: 'negative' },
+    { result: '😑 口味普通，吃完就忘了。', performance: '+5%', type: 'neutral' }
+  ],
+  traditional: [
+    { result: '✅ 經典家常味！溫暖又滿足！', performance: '+35%', type: 'positive' },
+    { result: '❌ 肉質太老，咬不動...', performance: '-25%', type: 'negative' },
+    { result: '😑 就是普通的雞腿。', performance: '+3%', type: 'neutral' }
+  ],
+  shipping: [
+    { result: '✅ 新鮮肥美！海味十足！', performance: '+60%', type: 'positive' },
+    { result: '❌ 不新鮮！完全沒有海味...', performance: '-50%', type: 'negative' },
+    { result: '😑 還可以，但沒什麼特別。', performance: '+2%', type: 'neutral' }
+  ]
+};
+
+function selectStock(stockType) {
+  // 禁用所有股票按鈕
+  document.querySelectorAll('.stock-btn').forEach(btn => {
+    btn.disabled = true;
+  });
+  
+  // 隨機選擇結果
+  const results = gameResults[stockType];
+  const randomResult = results[Math.floor(Math.random() * results.length)];
+  
+  // 顯示結果
+  const resultBox = document.getElementById('single-result');
+  resultBox.innerHTML = `
+    <div class="result-content">
+      <div style="font-size: 1.1rem; margin-bottom: 10px;">${randomResult.result}</div>
+      <div style="font-weight: bold; font-size: 1.2rem;">資產評價：${randomResult.performance}</div>
+    </div>
+  `;
+  
+  resultBox.className = `result-box show result-${randomResult.type}`;
+  resultBox.style.display = 'block';
+  
+  // 延遲顯示彈窗
+  setTimeout(() => {
+    showGamePopup();
+  }, 1500);
+}
+
+function selectETF() {
+  // 禁用ETF按鈕
+  document.getElementById('etf-btn').disabled = true;
+  
+  // 顯示ETF結果
+  const resultBox = document.getElementById('etf-result');
+  resultBox.innerHTML = `
+    <div class="etf-calculation">
+      <div>• 菜色1 (牛排)：『有點老...』 (-10%)</div>
+      <div>• 菜色2 (青菜)：『很新鮮！』 (+15%)</div>
+      <div>• 菜色3 (湯品)：『還不錯。』 (+5%)</div>
+      <div>• 菜色4 (甜點)：『太甜了。』 (-2%)</div>
+    </div>
+    <div class="etf-total">
+      【自助餐總評價】：整體還算滿意！<br>
+      資產評價：+8%
+    </div>
+  `;
+  
+  resultBox.className = 'result-box show result-positive';
+  resultBox.style.display = 'block';
+  
+  // 延遲顯示彈窗
+  setTimeout(() => {
+    showGamePopup();
+  }, 2000);
+}
+
+function showGamePopup() {
+  document.getElementById('gamePopup').style.display = 'flex';
+}
+
+function closeGamePopup() {
+  document.getElementById('gamePopup').style.display = 'none';
+}
+
+// 學習策略遊戲功能
+let studyResults = {
+  'all-in': [
+    {
+      type: 'success',
+      title: '📈 天啊！你賭對了！這次數學超簡單！',
+      scores: [
+        { subject: '數學 (準備100點)', score: 100, level: 'high', note: '單科榜首！' },
+        { subject: '英文 (準備0點)', score: 0, level: 'low' },
+        { subject: '物理 (準備0點)', score: 0, level: 'low' },
+        { subject: '社會 (準備0點)', score: 0, level: 'low' },
+        { subject: '國文 (準備0點)', score: 0, level: 'low' }
+      ],
+      conclusion: '你成了數學傳奇，但也當掉了其他四科。',
+      resultClass: 'failure'
+    },
+    {
+      type: 'failure', 
+      title: '📉 完蛋！你賭錯了！這次數學超難...',
+      scores: [
+        { subject: '數學 (準備100點)', score: 10, level: 'low', note: '失利！' },
+        { subject: '英文 (準備0點)', score: 0, level: 'low' },
+        { subject: '物理 (準備0點)', score: 0, level: 'low' },
+        { subject: '社會 (準備0點)', score: 0, level: 'low' },
+        { subject: '國文 (準備0點)', score: 0, level: 'low' }
+      ],
+      conclusion: '你因為數學失利而全盤皆輸...',
+      resultClass: 'failure'
+    }
+  ],
+  'balanced': {
+    type: 'balanced',
+    title: '📊 雖然科目有難有易，但你都穩穩拿下了！',
+    scores: [
+      { subject: '數學 (很難)', score: 60, level: 'medium' },
+      { subject: '英文 (簡單)', score:  85, level: 'high' },
+      { subject: '物理 (普通)', score: 70, level: 'medium' },
+      { subject: '社會 (普通)', score: 75, level: 'medium' },
+      { subject: '國文 (簡單)', score: 90, level: 'high' }
+    ],
+    conclusion: '總平均：76 分 (恭喜，穩健 All Pass！)',
+    resultClass: 'success'
+  }
+};
+
+function selectStudyStrategy(strategy) {
+  // 禁用所有策略按鈕
+  document.getElementById('all-in-btn').disabled = true;
+  document.getElementById('balanced-btn').disabled = true;
+  
+  let result;
+  
+  if (strategy === 'all-in') {
+    // 隨機選擇 all-in 的結果
+    result = studyResults['all-in'][Math.floor(Math.random() * studyResults['all-in'].length)];
+  } else {
+    result = studyResults['balanced'];
+  }
+  
+  // 顯示結果
+  displayStudyResult(result);
+  
+  // 顯示結果區域
+  document.getElementById('studyResult').style.display = 'block';
+  
+  // 延遲顯示彈窗
+  setTimeout(() => {
+    showStudyPopup();
+  }, 2000);
+}
+
+function displayStudyResult(result) {
+  const contentDiv = document.getElementById('studyResultContent');
+  
+  let scoresHTML = '';
+  result.scores.forEach(score => {
+    const noteText = score.note ? ` (${score.note})` : '';
+    scoresHTML += `
+      <div class="score-item">
+        <span class="score-subject">${score.subject}</span>
+        <span class="score-value score-${score.level}">${score.score} 分${noteText}</span>
+      </div>
+    `;
+  });
+  
+  contentDiv.innerHTML = `
+    <div class="result-header">
+      <h5 style="color: #1a73e8; margin-bottom: 20px;">${result.title}</h5>
+    </div>
+    <div class="score-card">
+      <h6 style="margin-bottom: 15px; color: #333;"><strong>成績單：</strong></h6>
+      ${scoresHTML}
+    </div>
+    <div class="final-result ${result.resultClass}">
+      <strong>結果：${result.conclusion}</strong>
+    </div>
+  `;
+}
+
+function showStudyPopup() {
+  document.getElementById('studyPopup').style.display = 'flex';
+}
+
+function closeStudyPopup() {
+  document.getElementById('studyPopup').style.display = 'none';
+}
+
+// 基因實驗室功能
+let draggedElement = null;
+let correctPlacements = 0;
+
+function dragStart(event) {
+  draggedElement = event.target;
+  event.target.classList.add('dragging');
+}
+
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function dropTag(event) {
+  event.preventDefault();
+  
+  if (!draggedElement) return;
+  
+  const dropZone = event.currentTarget;
+  const tagCorrectZone = draggedElement.getAttribute('data-correct');
+  const isCorrect = (dropZone.id === 'stockDnaZone' && tagCorrectZone === 'stock') ||
+                   (dropZone.id === 'fundDnaZone' && tagCorrectZone === 'fund');
+  
+  // 移除拖曳效果
+  draggedElement.classList.remove('dragging');
+  dropZone.classList.remove('drag-over', 'drag-over-wrong');
+  
+  if (isCorrect) {
+    // 正確放置
+    const droppedTagsContainer = dropZone.querySelector('.dropped-tags');
+    const clonedTag = draggedElement.cloneNode(true);
+    
+    // 移除原標籤
+    draggedElement.remove();
+    
+    // 添加到正確區域
+    clonedTag.classList.add('dropped');
+    clonedTag.draggable = false;
+    clonedTag.removeAttribute('ondragstart');
+    droppedTagsContainer.appendChild(clonedTag);
+    
+    correctPlacements++;
+    
+    // 檢查是否完成
+    if (correctPlacements === 4) {
+      document.getElementById('synthesisSection').style.display = 'block';
+    }
+    
+  } else {
+    // 錯誤放置 - 標籤彈回
+    dropZone.classList.add('drag-over-wrong');
+    setTimeout(() => {
+      dropZone.classList.remove('drag-over-wrong');
+    }, 500);
+  }
+  
+  draggedElement = null;
+}
+
+// 拖曳懸停效果
+document.addEventListener('dragenter', function(event) {
+  if (event.target.classList.contains('dna-zone')) {
+    event.target.classList.add('drag-over');
+  }
+});
+
+document.addEventListener('dragleave', function(event) {
+  if (event.target.classList.contains('dna-zone')) {
+    event.target.classList.remove('drag-over');
+  }
+});
+
+function synthesizeETF() {
+  document.getElementById('synthesisResult').style.display = 'block';
+  document.getElementById('synthesisBtn').disabled = true;
+  
+  // 延遲顯示彈窗
+  setTimeout(() => {
+    showGenePopup();
+  }, 1500);
+}
+
+function showGenePopup() {
+  document.getElementById('genePopup').style.display = 'flex';
+}
+
+function closeGenePopup() {
+  document.getElementById('genePopup').style.display = 'none';
+}
+</script>
+{% endblock %}
