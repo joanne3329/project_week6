@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from .models import db, User, bcrypt
-from simulate import simulate_bp  # 投資模擬工具 blueprint
+from .simulate import simulate_bp  # 投資模擬工具 blueprint
 
 # ========== 開關設定 ==========
 USE_LOGIN = False
